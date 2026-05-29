@@ -168,13 +168,42 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
 .footer-copy{font-size:0.68rem;opacity:0.38;}
 
 /* ===== ADMIN MODAL ===== */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.72);
+  z-index:2000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow-y:auto;           /* scroll no overlay se tela muito pequena */
+}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--branco);width:100%;max-width:920px;max-height:92vh;overflow-y:auto;border-radius:2px;}
-.modal-header{display:flex;justify-content:space-between;align-items:center;padding:24px 32px;border-bottom:1px solid var(--areia);position:sticky;top:0;background:var(--branco);z-index:5;}
-.modal-header h2{font-family:var(--font-display);font-size:1.7rem;font-weight:300;}
-.modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--marrom);padding:4px 10px;line-height:1;}
-.modal-body{padding:30px 32px;}
+.modal{
+  background:var(--branco);
+  width:100%;
+  max-width:860px;
+  max-height:88vh;
+  overflow-y:auto;
+  border-radius:3px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  flex-shrink:0;             /* não encolhe dentro do flex do overlay */
+  position:relative;
+}
+.modal-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 28px;
+  border-bottom:1px solid var(--areia);
+  position:sticky;top:0;background:var(--branco);z-index:10;
+}
+.modal-header h2{font-family:var(--font-display);font-size:1.6rem;font-weight:300;}
+.modal-close{
+  background:none;border:none;font-size:1.4rem;cursor:pointer;
+  color:var(--marrom);padding:6px 12px;line-height:1;
+  transition:var(--tr);border-radius:2px;
+}
+.modal-close:hover{background:var(--creme-escuro);}
+.modal-body{padding:26px 28px;}
 
 /* Login */
 .login-wrap{max-width:380px;margin:0 auto;text-align:center;padding:10px 0;}
@@ -182,13 +211,21 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
 .login-wrap p{font-size:0.78rem;color:#888;margin-bottom:26px;}
 
 /* Admin tabs */
-.admin-tabs{display:flex;gap:3px;margin-bottom:30px;flex-wrap:wrap;}
-.admin-tab{padding:9px 18px;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--creme-escuro);border:1px solid var(--areia);cursor:pointer;transition:var(--tr);font-family:var(--font-body);color:var(--marrom);}
+.admin-tabs{display:flex;gap:3px;margin-bottom:28px;flex-wrap:wrap;}
+.admin-tab{
+  padding:9px 16px;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;
+  background:var(--creme-escuro);border:1px solid var(--areia);cursor:pointer;
+  transition:var(--tr);font-family:var(--font-body);color:var(--marrom);
+  white-space:nowrap;
+}
 .admin-tab.active{background:var(--verde);color:#fff;border-color:var(--verde);}
 .admin-panel{display:none;}
 .admin-panel.active{display:block;}
-.admin-section-title{font-family:var(--font-display);font-size:1.4rem;font-weight:300;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--areia);}
-.admin-sub-title{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde);margin-bottom:14px;margin-top:22px;display:block;}
+.admin-section-title{
+  font-family:var(--font-display);font-size:1.35rem;font-weight:300;
+  margin-bottom:18px;padding-bottom:11px;border-bottom:1px solid var(--areia);
+}
+.admin-sub-title{font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde);margin-bottom:12px;margin-top:20px;display:block;}
 
 /* Admin form pieces */
 .admin-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
@@ -450,12 +487,13 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
       <div id="adminLogin">
         <div class="login-wrap">
           <h3>Acesso Restrito</h3>
-          <p>Senha padrão: <strong>galeria2025</strong></p>
+          <p>Digite a senha para acessar o painel.</p>
           <div style="margin-bottom:14px;">
             <input type="password" id="adminPwd" class="ainput" placeholder="Senha" onkeydown="if(event.key==='Enter'){event.preventDefault();doLogin();}">
           </div>
           <button type="button" class="abtn abtn-g" onclick="doLogin()" style="width:100%;padding:13px;">Entrar</button>
           <div class="amsg er" id="loginMsg" style="margin-top:10px;">Senha incorreta.</div>
+          <p style="font-size:0.68rem;color:#aaa;margin-top:14px;">Senha padrão inicial: <code>galeria2025</code><br>Altere em: Admin → Senha</p>
         </div>
       </div>
 
@@ -474,13 +512,22 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
         <!-- TAB HOME -->
         <div class="admin-panel active" id="tabHome">
           <div class="admin-section-title">Slider da Home — Imagens (máx. 10)</div>
-          <div class="img-warn" id="imgWarn">⚠ Atenção: sites como postimg.cc e alguns outros bloqueiam exibição em outros domínios. Prefira <strong>Imgur</strong> (imgur.com), <strong>Imgbb</strong> (imgbb.com) ou imagens do <strong>Google Drive</strong> (com link direto).</div>
-          <p style="font-size:0.78rem;color:#888;margin-bottom:14px;">Cole uma URL por linha. As imagens aparecerão em ordem no slider.</p>
+
+          <div class="img-warn" id="imgWarn">⚠ <strong>postimg.cc detectado:</strong> esse serviço bloqueia exibição em outros sites. Substitua pelas URLs do Imgur ou Imgbb.</div>
+
+          <div style="background:#e8f5e9;border:1px solid #a5d6a7;padding:14px 16px;border-radius:2px;margin-bottom:16px;font-size:0.78rem;line-height:1.7;color:#2e7d32;">
+            <strong>✅ Como hospedar imagens gratuitamente no Imgur:</strong><br>
+            1. Acesse <a href="https://imgur.com/upload" target="_blank" style="color:var(--verde);">imgur.com/upload</a> e faça upload da imagem<br>
+            2. Clique na imagem aberta → botão direito → <em>"Copiar endereço da imagem"</em><br>
+            3. O link termina em <code>.jpg</code> ou <code>.png</code> — cole aqui abaixo<br>
+            <em>Ou use <a href="https://imgbb.com" target="_blank" style="color:var(--verde);">imgbb.com</a> (mesmo processo)</em>
+          </div>
+
           <label class="alabel">URLs das imagens (uma por linha, máx. 10)</label>
-          <textarea class="atextarea" id="sliderUrlsInput" style="height:150px;font-size:0.76rem;" placeholder="https://i.imgur.com/...&#10;https://i.ibb.co/...&#10;..."></textarea>
-          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;">
+          <textarea class="atextarea" id="sliderUrlsInput" style="height:150px;font-size:0.76rem;" placeholder="https://i.imgur.com/abc123.jpg&#10;https://i.imgur.com/def456.jpg&#10;..."></textarea>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <button type="button" class="abtn abtn-g" onclick="saveSlider()">Salvar Slider</button>
-            <span style="font-size:0.72rem;color:#888;">As imagens abaixo confirmam o que está salvo</span>
+            <span style="font-size:0.72rem;color:#888;">As miniaturas abaixo confirmam o que foi salvo</span>
           </div>
           <div class="amsg ok" id="sliderMsg"></div>
           <div class="slider-list" id="sliderImgList"></div>
@@ -522,6 +569,9 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
           <!-- Nova obra -->
           <div class="a-box">
             <span class="admin-sub-title" style="margin-top:0;">+ Nova Obra</span>
+            <div style="font-size:0.74rem;color:#666;background:#f9f9f6;border:1px solid var(--areia);padding:10px 13px;margin-bottom:14px;border-radius:2px;line-height:1.6;">
+              💡 Use imagens em <strong>baixa resolução</strong> aqui (para exibição no site). As imagens em alta resolução ficam no Google Drive e são liberadas após compra na Etsy. Hospede as thumbnails no <a href="https://imgur.com/upload" target="_blank" style="color:var(--verde);">Imgur</a>.
+            </div>
             <div class="admin-row">
               <div><label class="alabel">Coleção *</label><select id="obraColecao" class="aselect"><option value="">Selecione…</option></select></div>
               <div><label class="alabel">Título da Obra *</label><input type="text" id="obraTitulo" class="ainput" placeholder="Nome da obra"></div>
@@ -598,7 +648,7 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
 
 <!-- MODAL EDITAR COLEÇÃO -->
 <div class="modal-overlay" id="editColModal">
-  <div class="modal" style="max-width:620px;">
+  <div class="modal" style="max-width:600px;">
     <div class="modal-header">
       <h2>Editar Coleção</h2>
       <button type="button" class="modal-close" onclick="closeEditCol()">✕</button>
@@ -619,7 +669,7 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
 
 <!-- MODAL EDITAR OBRA -->
 <div class="modal-overlay" id="editObraModal">
-  <div class="modal" style="max-width:680px;">
+  <div class="modal" style="max-width:660px;">
     <div class="modal-header">
       <h2>Editar Obra</h2>
       <button type="button" class="modal-close" onclick="closeEditObra()">✕</button>
