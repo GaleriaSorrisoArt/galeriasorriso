@@ -7,406 +7,275 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & TOKENS ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-
 :root{
-  --verde:#3D6B4F;
-  --verde-claro:#5A8F6E;
-  --verde-palido:#C8DDD1;
-  --creme:#F7F4EE;
-  --creme-escuro:#EDE8DF;
-  --areia:#D6C9B5;
-  --marrom:#4A3F35;
-  --preto:#1A1714;
-  --branco:#FEFCF8;
-  --font-display:'Playfair Display',serif;
-  --font-body:'DM Sans',sans-serif;
-  --font-serif:'DM Serif Display',serif;
-  --transition:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --verde:#3D6B4F;--verde-claro:#5A8F6E;--verde-palido:#C8DDD1;
+  --creme:#F7F4EE;--creme-escuro:#EDE8DF;--areia:#D6C9B5;
+  --marrom:#4A3F35;--preto:#1A1714;--branco:#FEFCF8;
+  --font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;
+  --tr:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-
 body{background:var(--creme);color:var(--preto);font-family:var(--font-body);overflow-x:hidden;}
-.hidden{display:none!important;}
 .container{width:90%;max-width:1280px;margin:0 auto;}
 
-/* ===== NAVBAR ===== */
-.navbar{
-  position:fixed;top:0;left:0;width:100%;z-index:900;
-  background:rgba(247,244,238,0.92);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--areia);transition:var(--transition);
-}
-.nav-inner{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 5%;
-}
-.logo{
-  font-family:var(--font-display);font-size:1.35rem;font-weight:300;
-  letter-spacing:0.12em;color:var(--verde);text-decoration:none;
-}
+/* NAV */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(247,244,238,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--areia);}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:18px 5%;}
+.logo{font-family:var(--font-display);font-size:1.3rem;font-weight:300;letter-spacing:0.12em;color:var(--verde);text-decoration:none;}
 .logo span{color:var(--marrom);}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-links a{
-  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--marrom);text-decoration:none;transition:var(--transition);
-  font-weight:500;
-}
+.nav-links{display:flex;gap:26px;align-items:center;}
+.nav-links a{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--marrom);text-decoration:none;transition:var(--tr);font-weight:500;}
 .nav-links a:hover{color:var(--verde);}
-.nav-admin-btn{
-  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-  background:transparent;border:1px solid var(--verde);color:var(--verde);
-  padding:8px 18px;cursor:pointer;transition:var(--transition);font-family:var(--font-body);
-}
-.nav-admin-btn:hover{background:var(--verde);color:var(--branco);}
+.nav-admin-btn{font-size:0.63rem;letter-spacing:0.15em;text-transform:uppercase;background:transparent;border:1px solid var(--verde);color:var(--verde);padding:8px 16px;cursor:pointer;transition:var(--tr);font-family:var(--font-body);}
+.nav-admin-btn:hover{background:var(--verde);color:#fff;}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.hamburger span{width:24px;height:1.5px;background:var(--marrom);transition:var(--transition);}
+.hamburger span{width:24px;height:1.5px;background:var(--marrom);}
 
-/* ===== PAGES ===== */
-.page{display:none;padding-top:80px;}
+/* PAGES */
+.page{display:none;padding-top:72px;}
 .page.active{display:block;}
 
 /* ===== HOME ===== */
-/* Slider */
-.slider-wrap{position:relative;height:92vh;overflow:hidden;background:#111;}
-.slide{
-  position:absolute;inset:0;opacity:0;transition:opacity 1s ease;
-}
+.slider-wrap{position:relative;height:94vh;overflow:hidden;background:#111;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;}
 .slide.active{opacity:1;}
-.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 8s ease;}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 9s ease;display:block;}
 .slide.active img{transform:scale(1);}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15),rgba(0,0,0,0.5));}
-.slider-content{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;
-  color:white;z-index:2;padding:20px;
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.18) 60%,rgba(0,0,0,0.55) 100%);}
+
+/* Slider bottom bar — logo + botões ficam abaixo */
+.slider-bottom{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  padding:0 5% 36px;
+  display:flex;justify-content:space-between;align-items:flex-end;
 }
-.slider-tag{font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;margin-bottom:20px;opacity:0.85;}
-.slider-title{font-family:var(--font-display);font-size:5.5rem;font-weight:300;line-height:1.05;margin-bottom:16px;}
-.slider-title em{font-style:italic;color:var(--verde-palido);}
-.slider-sub{font-size:1rem;font-weight:300;opacity:0.8;margin-bottom:44px;max-width:520px;line-height:1.7;}
-.slider-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
-.btn-hero-main{
-  background:var(--verde);color:white;padding:16px 38px;
-  font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
-  text-decoration:none;transition:var(--transition);font-family:var(--font-body);border:none;cursor:pointer;
-}
-.btn-hero-main:hover{background:var(--verde-claro);}
-.btn-hero-out{
-  border:1px solid rgba(255,255,255,0.7);color:white;padding:16px 38px;
-  font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
-  text-decoration:none;transition:var(--transition);
-}
-.btn-hero-out:hover{background:white;color:var(--preto);}
-.slider-dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3;}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:var(--transition);}
-.dot.active{background:white;transform:scale(1.3);}
-.slider-arrows{position:absolute;bottom:30px;right:5%;display:flex;gap:12px;z-index:3;}
-.slider-arrow{
-  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);
-  color:white;width:44px;height:44px;cursor:pointer;font-size:1.1rem;
-  transition:var(--transition);display:flex;align-items:center;justify-content:center;
-}
+.slider-dots{display:flex;gap:10px;align-items:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);cursor:pointer;transition:var(--tr);}
+.dot.active{background:#fff;transform:scale(1.35);}
+.slider-arrows{display:flex;gap:10px;}
+.slider-arrow{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);color:#fff;width:44px;height:44px;cursor:pointer;font-size:1.1rem;transition:var(--tr);display:flex;align-items:center;justify-content:center;}
 .slider-arrow:hover{background:var(--verde);}
 
 /* Destaque home */
 .home-destaque{padding:100px 0;background:var(--creme);}
 .home-destaque-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.home-destaque-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:18px;display:block;}
-.home-destaque h2{font-family:var(--font-display);font-size:3.8rem;font-weight:300;line-height:1.1;margin-bottom:22px;}
-.home-destaque p{line-height:1.85;color:#5a5047;margin-bottom:36px;font-weight:300;}
-.home-destaque-img{border-radius:2px;overflow:hidden;position:relative;}
-.home-destaque-img img{width:100%;height:580px;object-fit:cover;transition:1.2s ease;display:block;}
+.home-destaque-tag{font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:16px;display:block;}
+.home-destaque h2{font-family:var(--font-display);font-size:3.6rem;font-weight:300;line-height:1.1;margin-bottom:20px;}
+.home-destaque p{line-height:1.85;color:#5a5047;margin-bottom:34px;font-weight:300;}
+.home-destaque-img{overflow:hidden;border-radius:2px;position:relative;}
+.home-destaque-img::before{content:'COLEÇÃO EM DESTAQUE';position:absolute;top:20px;left:20px;z-index:2;background:var(--verde);color:#fff;font-size:0.58rem;letter-spacing:0.22em;padding:5px 12px;font-family:var(--font-body);font-weight:500;}
+.home-destaque-img img{width:100%;height:560px;object-fit:cover;transition:1.2s ease;display:block;}
 .home-destaque-img:hover img{transform:scale(1.04);}
-.home-destaque-img::before{
-  content:'COLEÇÃO EM DESTAQUE';position:absolute;top:24px;left:24px;z-index:2;
-  background:var(--verde);color:white;font-size:0.6rem;letter-spacing:0.22em;
-  padding:6px 14px;font-family:var(--font-body);font-weight:500;
-}
-.btn-verde{
-  display:inline-block;background:var(--verde);color:white;padding:15px 34px;
-  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;
-  transition:var(--transition);font-family:var(--font-body);border:none;cursor:pointer;
-}
-.btn-verde:hover{background:var(--verde-claro);}
-.btn-outline-verde{
-  display:inline-block;border:1px solid var(--verde);color:var(--verde);padding:15px 34px;
-  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;
-  transition:var(--transition);font-family:var(--font-body);background:transparent;cursor:pointer;
-}
-.btn-outline-verde:hover{background:var(--verde);color:white;}
 
-/* Mini grid home */
-.home-mini-grid{padding:0 0 100px;}
-.home-mini-grid .container{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+/* Mini grid */
+.home-mini{padding:0 0 100px;}
+.home-mini .container{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
 .mini-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
-.mini-card img{width:100%;height:100%;object-fit:cover;transition:1s ease;}
-.mini-card:hover img{transform:scale(1.08);}
-.mini-card-info{
-  position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
-  display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
-  color:white;opacity:0;transition:var(--transition);
-}
-.mini-card:hover .mini-card-info{opacity:1;}
-.mini-card-info h4{font-family:var(--font-display);font-size:1.5rem;font-weight:300;margin-bottom:6px;}
-.mini-card-info span{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.8;}
+.mini-card img{width:100%;height:100%;object-fit:cover;transition:1s;}
+.mini-card:hover img{transform:scale(1.07);}
+.mini-info{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72),transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff;opacity:0;transition:var(--tr);}
+.mini-card:hover .mini-info{opacity:1;}
+.mini-info h4{font-family:var(--font-display);font-size:1.4rem;font-weight:300;margin-bottom:5px;}
+.mini-info span{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.78;}
 
-/* ===== COLEÇÕES ===== */
-.page-header{
-  padding:80px 5% 60px;background:var(--creme-escuro);text-align:center;
-  border-bottom:1px solid var(--areia);
-}
-.page-header-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:16px;display:block;}
-.page-header h1{font-family:var(--font-display);font-size:4rem;font-weight:300;margin-bottom:0;}
+/* Botões globais */
+.btn-verde{display:inline-block;background:var(--verde);color:#fff;padding:14px 32px;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:var(--tr);font-family:var(--font-body);border:none;cursor:pointer;}
+.btn-verde:hover{background:var(--verde-claro);}
+.btn-outline-verde{display:inline-block;border:1px solid var(--verde);color:var(--verde);padding:14px 32px;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:var(--tr);font-family:var(--font-body);background:transparent;cursor:pointer;}
+.btn-outline-verde:hover{background:var(--verde);color:#fff;}
 
-.colecoes-wrap{padding:80px 0;}
-.colecao-bloco{margin-bottom:90px;}
-.colecao-titulo-wrap{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--areia);
-}
-.colecao-titulo-wrap h2{font-family:var(--font-display);font-size:2.8rem;font-weight:300;}
-.colecao-temas{display:flex;gap:8px;flex-wrap:wrap;}
-.tema-tag{
-  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
-  background:var(--verde-palido);color:var(--verde);padding:4px 12px;border-radius:20px;
-  font-weight:500;
-}
-.colecao-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.obra-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;border-radius:2px;}
-.obra-card img{width:100%;height:100%;object-fit:cover;transition:0.8s ease;}
+/* PAGE HEADER */
+.page-header{padding:70px 5% 50px;background:var(--creme-escuro);text-align:center;border-bottom:1px solid var(--areia);}
+.page-header-tag{font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:14px;display:block;}
+.page-header h1{font-family:var(--font-display);font-size:3.8rem;font-weight:300;}
+
+/* COLEÇÕES */
+.colecoes-wrap{padding:70px 0;}
+.colecao-bloco{margin-bottom:80px;}
+.colecao-titulo-wrap{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:12px;}
+.colecao-titulo-wrap h2{font-family:var(--font-display);font-size:2.6rem;font-weight:300;}
+.colecao-temas{display:flex;gap:7px;flex-wrap:wrap;}
+.tema-tag{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;background:var(--verde-palido);color:var(--verde);padding:4px 11px;border-radius:20px;font-weight:500;}
+.colecao-desc{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--areia);color:#5a5047;line-height:1.8;}
+.colecao-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.obra-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;border-radius:2px;background:#ddd;}
+.obra-card img{width:100%;height:100%;object-fit:cover;transition:0.8s ease;display:block;}
 .obra-card:hover img{transform:scale(1.06);}
-.obra-info{
-  position:absolute;bottom:0;left:0;right:0;
-  background:linear-gradient(to top,rgba(0,0,0,0.75),transparent);
-  padding:30px 18px 18px;color:white;
-  transform:translateY(20px);opacity:0;transition:var(--transition);
-}
+.obra-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);padding:30px 16px 16px;color:#fff;transform:translateY(16px);opacity:0;transition:var(--tr);}
 .obra-card:hover .obra-info{transform:translateY(0);opacity:1;}
-.obra-info h4{font-family:var(--font-display);font-size:1rem;font-weight:400;margin-bottom:4px;}
-.obra-info .obra-temas{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;}
+.obra-info h4{font-family:var(--font-display);font-size:0.95rem;font-weight:400;margin-bottom:4px;}
+.obra-info .obra-dims{font-size:0.6rem;letter-spacing:0.1em;opacity:0.75;margin-bottom:3px;}
+.obra-info .obra-temas{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.68;}
 
-/* ===== CURADORIA ===== */
-.curadoria-wrap{padding:80px 0;}
-.curadoria-filtros{
-  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:60px;
-  padding-bottom:30px;border-bottom:1px solid var(--areia);
-}
-.filtro-btn{
-  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
-  padding:10px 22px;border:1px solid var(--areia);background:transparent;
-  color:var(--marrom);cursor:pointer;transition:var(--transition);font-family:var(--font-body);
-}
-.filtro-btn.active,.filtro-btn:hover{background:var(--verde);color:white;border-color:var(--verde);}
-.curadoria-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.curadoria-empty{text-align:center;padding:80px;color:#888;font-size:0.9rem;}
+/* CURADORIA */
+.curadoria-wrap{padding:70px 0;}
+.curadoria-filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:50px;padding-bottom:28px;border-bottom:1px solid var(--areia);}
+.filtro-btn{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;padding:9px 20px;border:1px solid var(--areia);background:transparent;color:var(--marrom);cursor:pointer;transition:var(--tr);font-family:var(--font-body);}
+.filtro-btn.active,.filtro-btn:hover{background:var(--verde);color:#fff;border-color:var(--verde);}
+.curadoria-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.curadoria-empty{text-align:center;padding:70px;color:#999;font-size:0.9rem;grid-column:1/-1;}
 
-/* ===== LOJA ===== */
-.loja-hero{
-  height:65vh;position:relative;overflow:hidden;display:flex;
-  align-items:center;justify-content:center;text-align:center;
-}
+/* LOJA */
+.loja-hero{height:70vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
 .loja-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.loja-hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);}
-.loja-hero-content{position:relative;z-index:2;color:white;padding:20px;}
-.loja-hero-content h1{font-family:var(--font-display);font-size:5rem;font-weight:300;margin-bottom:20px;}
-.loja-hero-content p{font-size:1rem;font-weight:300;opacity:0.85;margin-bottom:40px;max-width:500px;}
-.btn-etsy{
-  display:inline-block;background:#F56400;color:white;padding:18px 44px;
-  font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;
-  transition:var(--transition);font-family:var(--font-body);
-}
+.loja-hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);}
+.loja-hero-content{position:relative;z-index:2;color:#fff;padding:20px;}
+.loja-hero-content h1{font-family:var(--font-display);font-size:4.5rem;font-weight:300;margin-bottom:18px;line-height:1.05;}
+.loja-hero-content p{font-size:1rem;font-weight:300;opacity:0.88;margin-bottom:38px;max-width:480px;line-height:1.75;}
+.btn-etsy{display:inline-block;background:#F56400;color:#fff;padding:17px 42px;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:var(--tr);font-family:var(--font-body);}
 .btn-etsy:hover{background:#d45500;}
-.loja-info{padding:80px 0;background:var(--creme-escuro);}
-.loja-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:50px;text-align:center;}
-.loja-info-item h3{font-family:var(--font-display);font-size:2rem;font-weight:300;color:var(--verde);margin-bottom:12px;}
-.loja-info-item p{font-size:0.85rem;line-height:1.7;color:#5a5047;}
-.loja-icon{font-size:2rem;margin-bottom:18px;}
 
-/* ===== SOBRE ===== */
+/* SOBRE */
 .sobre-wrap{padding:100px 0;}
-.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;}
 .sobre-foto{position:relative;}
-.sobre-foto img{width:100%;height:620px;object-fit:cover;display:block;}
-.sobre-foto::after{
-  content:'';position:absolute;bottom:-20px;right:-20px;width:100%;height:100%;
-  border:1px solid var(--verde-palido);z-index:-1;
-}
-.sobre-texto .sobre-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:18px;display:block;}
-.sobre-texto h1{font-family:var(--font-display);font-size:3.5rem;font-weight:300;margin-bottom:30px;line-height:1.1;}
-.sobre-texto p{line-height:1.9;color:#5a5047;margin-bottom:22px;font-weight:300;}
-.sobre-assinatura{font-family:var(--font-display);font-style:italic;font-size:1.8rem;color:var(--verde);margin-top:36px;}
+.sobre-foto img{width:100%;height:600px;object-fit:cover;display:block;}
+.sobre-foto::after{content:'';position:absolute;bottom:-18px;right:-18px;width:100%;height:100%;border:1px solid var(--verde-palido);z-index:-1;}
+.sobre-tag{font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--verde);margin-bottom:16px;display:block;}
+.sobre-texto h1{font-family:var(--font-display);font-size:3.2rem;font-weight:300;margin-bottom:28px;line-height:1.1;}
+.sobre-texto p{line-height:1.9;color:#5a5047;margin-bottom:20px;font-weight:300;}
+.sobre-assinatura{font-family:var(--font-display);font-style:italic;font-size:1.7rem;color:var(--verde);margin-top:34px;}
 
-/* ===== CONTATO ===== */
+/* CONTATO */
 .contato-wrap{padding:100px 0;}
-.contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;}
-.contato-info h1{font-family:var(--font-display);font-size:3.5rem;font-weight:300;margin-bottom:30px;line-height:1.1;}
-.contato-info p{line-height:1.85;color:#5a5047;margin-bottom:40px;}
-.contato-links{display:flex;flex-direction:column;gap:18px;}
-.contato-link-item{
-  display:flex;align-items:center;gap:14px;text-decoration:none;
-  color:var(--preto);padding:16px;border:1px solid var(--areia);transition:var(--transition);
-}
+.contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;}
+.contato-info h1{font-family:var(--font-display);font-size:3.2rem;font-weight:300;margin-bottom:26px;line-height:1.1;}
+.contato-info p{line-height:1.85;color:#5a5047;margin-bottom:36px;}
+.contato-links{display:flex;flex-direction:column;gap:14px;}
+.contato-link-item{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--preto);padding:15px;border:1px solid var(--areia);transition:var(--tr);}
 .contato-link-item:hover{border-color:var(--verde);background:var(--creme-escuro);}
-.contato-link-icon{font-size:1.3rem;width:40px;text-align:center;}
-.contato-link-text{font-size:0.8rem;letter-spacing:0.1em;}
-.contato-link-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:3px;}
-.contato-form{background:var(--creme-escuro);padding:50px;border:1px solid var(--areia);}
-.contato-form h2{font-family:var(--font-display);font-size:2rem;font-weight:300;margin-bottom:30px;}
-.form-group{margin-bottom:22px;}
-.form-group label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:8px;color:var(--verde);}
-.form-group input,.form-group textarea{
-  width:100%;padding:14px;background:var(--branco);border:1px solid var(--areia);
-  font-family:var(--font-body);font-size:0.9rem;color:var(--preto);transition:var(--transition);
-}
-.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--verde);}
-.form-group textarea{height:130px;resize:vertical;}
-.form-success{display:none;padding:16px;background:var(--verde-palido);color:var(--verde);font-size:0.85rem;margin-top:16px;border-radius:2px;}
+.contato-link-icon{font-size:1.2rem;width:36px;text-align:center;}
+.contato-link-text{font-size:0.78rem;letter-spacing:0.08em;}
+.contato-link-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:2px;}
+.contato-form-wrap{background:var(--creme-escuro);padding:44px;border:1px solid var(--areia);}
+.contato-form-wrap h2{font-family:var(--font-display);font-size:1.9rem;font-weight:300;margin-bottom:28px;}
+.form-group{margin-bottom:20px;}
+.form-label{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--verde);}
+.form-input,.form-textarea{width:100%;padding:13px;background:var(--branco);border:1px solid var(--areia);font-family:var(--font-body);font-size:0.88rem;color:var(--preto);transition:var(--tr);}
+.form-input:focus,.form-textarea:focus{outline:none;border-color:var(--verde);}
+.form-textarea{height:120px;resize:vertical;}
+.form-note{font-size:0.72rem;color:#888;margin-top:10px;line-height:1.5;}
+.form-success{display:none;padding:14px;background:var(--verde-palido);color:var(--verde);font-size:0.82rem;margin-top:14px;border-radius:2px;}
+.form-error{display:none;padding:14px;background:#fde8e8;color:#c0392b;font-size:0.82rem;margin-top:14px;border-radius:2px;}
 
-/* ===== FOOTER ===== */
-.footer{background:var(--marrom);color:rgba(255,255,255,0.75);padding:60px 0;text-align:center;}
-.footer-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:300;color:white;margin-bottom:20px;letter-spacing:0.15em;}
-.footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:30px;}
-.footer-links a{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;transition:var(--transition);}
-.footer-links a:hover{color:white;}
-.footer-copy{font-size:0.7rem;opacity:0.4;}
+/* FOOTER */
+.footer{background:var(--marrom);color:rgba(255,255,255,0.7);padding:56px 0;text-align:center;}
+.footer-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:18px;letter-spacing:0.15em;}
+.footer-links{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:28px;}
+.footer-links a{font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:var(--tr);}
+.footer-links a:hover{color:#fff;}
+.footer-copy{font-size:0.68rem;opacity:0.38;}
 
 /* ===== ADMIN MODAL ===== */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:2000;
-  display:none;align-items:center;justify-content:center;padding:20px;
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.open{display:flex;}
-.modal{
-  background:var(--branco);width:100%;max-width:900px;max-height:90vh;
-  overflow-y:auto;border-radius:2px;
-}
-.modal-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:28px 36px;border-bottom:1px solid var(--areia);position:sticky;top:0;background:var(--branco);z-index:1;
-}
-.modal-header h2{font-family:var(--font-display);font-size:1.8rem;font-weight:300;}
-.modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--marrom);padding:4px 10px;}
-.modal-body{padding:36px;}
+.modal{background:var(--branco);width:100%;max-width:920px;max-height:92vh;overflow-y:auto;border-radius:2px;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:24px 32px;border-bottom:1px solid var(--areia);position:sticky;top:0;background:var(--branco);z-index:5;}
+.modal-header h2{font-family:var(--font-display);font-size:1.7rem;font-weight:300;}
+.modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--marrom);padding:4px 10px;line-height:1;}
+.modal-body{padding:30px 32px;}
 
 /* Login */
-.login-wrap{max-width:400px;margin:0 auto;text-align:center;padding:20px 0;}
+.login-wrap{max-width:380px;margin:0 auto;text-align:center;padding:10px 0;}
 .login-wrap h3{font-family:var(--font-display);font-size:1.8rem;font-weight:300;margin-bottom:8px;}
-.login-wrap p{font-size:0.8rem;color:#888;margin-bottom:30px;}
+.login-wrap p{font-size:0.78rem;color:#888;margin-bottom:26px;}
 
 /* Admin tabs */
-.admin-tabs{display:flex;gap:4px;margin-bottom:36px;flex-wrap:wrap;}
-.admin-tab{
-  padding:10px 20px;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-  background:var(--creme-escuro);border:1px solid var(--areia);cursor:pointer;
-  transition:var(--transition);font-family:var(--font-body);color:var(--marrom);
-}
-.admin-tab.active{background:var(--verde);color:white;border-color:var(--verde);}
+.admin-tabs{display:flex;gap:3px;margin-bottom:30px;flex-wrap:wrap;}
+.admin-tab{padding:9px 18px;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--creme-escuro);border:1px solid var(--areia);cursor:pointer;transition:var(--tr);font-family:var(--font-body);color:var(--marrom);}
+.admin-tab.active{background:var(--verde);color:#fff;border-color:var(--verde);}
 .admin-panel{display:none;}
 .admin-panel.active{display:block;}
+.admin-section-title{font-family:var(--font-display);font-size:1.4rem;font-weight:300;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--areia);}
+.admin-sub-title{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde);margin-bottom:14px;margin-top:22px;display:block;}
 
-/* Admin forms */
-.admin-section-title{
-  font-family:var(--font-display);font-size:1.5rem;font-weight:300;
-  margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--areia);
-}
-.admin-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.admin-form-row.full{grid-template-columns:1fr;}
-.admin-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:6px;}
-.admin-input,.admin-select,.admin-textarea{
-  width:100%;padding:11px 14px;border:1px solid var(--areia);background:var(--creme);
-  font-family:var(--font-body);font-size:0.85rem;color:var(--preto);transition:var(--transition);
-}
-.admin-input:focus,.admin-select:focus,.admin-textarea:focus{outline:none;border-color:var(--verde);}
-.admin-textarea{height:100px;resize:vertical;}
-.admin-btn{
-  padding:11px 26px;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
-  cursor:pointer;transition:var(--transition);font-family:var(--font-body);border:none;
-}
-.admin-btn-verde{background:var(--verde);color:white;}
-.admin-btn-verde:hover{background:var(--verde-claro);}
-.admin-btn-danger{background:#c0392b;color:white;}
-.admin-btn-danger:hover{background:#a93226;}
-.admin-btn-outline{background:transparent;border:1px solid var(--verde);color:var(--verde);}
-.admin-btn-outline:hover{background:var(--verde);color:white;}
-.admin-msg{font-size:0.8rem;padding:10px 14px;background:var(--verde-palido);color:var(--verde);margin-top:12px;display:none;border-radius:2px;}
+/* Admin form pieces */
+.admin-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.admin-row.full{grid-template-columns:1fr;}
+.admin-row.trio{grid-template-columns:1fr 1fr 1fr;}
+.alabel{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:5px;}
+.ainput,.aselect,.atextarea{width:100%;padding:10px 13px;border:1px solid var(--areia);background:var(--creme);font-family:var(--font-body);font-size:0.84rem;color:var(--preto);transition:var(--tr);}
+.ainput:focus,.aselect:focus,.atextarea:focus{outline:none;border-color:var(--verde);}
+.atextarea{height:90px;resize:vertical;}
+.abtn{padding:10px 22px;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:var(--tr);font-family:var(--font-body);border:none;}
+.abtn-g{background:var(--verde);color:#fff;}
+.abtn-g:hover{background:var(--verde-claro);}
+.abtn-r{background:#c0392b;color:#fff;}
+.abtn-r:hover{background:#a93226;}
+.abtn-o{background:transparent;border:1px solid var(--marrom);color:var(--marrom);}
+.abtn-o:hover{background:var(--marrom);color:#fff;}
+.amsg{font-size:0.78rem;padding:9px 13px;margin-top:10px;display:none;border-radius:2px;}
+.amsg.ok{background:var(--verde-palido);color:var(--verde);}
+.amsg.er{background:#fde8e8;color:#c0392b;}
 
-/* Admin lists */
-.admin-list{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
-.admin-list-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 18px;background:var(--creme-escuro);border:1px solid var(--areia);
-}
-.admin-list-item-info h4{font-size:0.9rem;margin-bottom:4px;}
-.admin-list-item-info span{font-size:0.7rem;color:#888;}
-.admin-list-item-actions{display:flex;gap:8px;}
-.admin-img-preview{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:16px;
-}
-.admin-img-thumb{position:relative;}
-.admin-img-thumb img{width:100%;height:100px;object-fit:cover;border-radius:2px;display:block;}
-.admin-img-thumb button{
-  position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.7);color:white;
-  border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:0.7rem;
-}
-.admin-check-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
-.admin-check-label{
-  display:flex;align-items:center;gap:6px;font-size:0.72rem;letter-spacing:0.1em;
-  cursor:pointer;padding:6px 14px;border:1px solid var(--areia);
-  transition:var(--transition);
-}
-.admin-check-label input:checked + span{color:var(--verde);}
-.admin-check-label:has(input:checked){border-color:var(--verde);background:var(--verde-palido);}
+/* Admin box */
+.a-box{background:var(--creme-escuro);padding:22px;border:1px solid var(--areia);margin-bottom:22px;}
 
-/* Textarea url list */
-.urls-help{font-size:0.72rem;color:#888;margin-top:6px;}
+/* Check tags */
+.check-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:7px;}
+.check-lbl{display:flex;align-items:center;gap:5px;font-size:0.68rem;letter-spacing:0.1em;cursor:pointer;padding:5px 12px;border:1px solid var(--areia);transition:var(--tr);background:var(--branco);}
+.check-lbl input{accent-color:var(--verde);}
+.check-lbl:has(input:checked){border-color:var(--verde);background:var(--verde-palido);color:var(--verde);}
 
-/* Slider preview */
-.slider-img-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
-.slider-img-row{display:flex;align-items:center;gap:12px;background:var(--creme-escuro);padding:10px;border:1px solid var(--areia);}
-.slider-img-row img{width:80px;height:50px;object-fit:cover;}
-.slider-img-row span{flex:1;font-size:0.8rem;word-break:break-all;}
+/* Admin list items */
+.a-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.a-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--creme-escuro);border:1px solid var(--areia);flex-wrap:wrap;gap:10px;}
+.a-item-info h4{font-size:0.88rem;margin-bottom:3px;}
+.a-item-info span{font-size:0.68rem;color:#888;}
+.a-item-actions{display:flex;gap:7px;flex-shrink:0;}
+.a-item-thumb{width:60px;height:46px;object-fit:cover;display:block;border-radius:2px;flex-shrink:0;}
+
+/* Slider list */
+.slider-list{display:flex;flex-direction:column;gap:7px;margin-top:14px;}
+.slider-row{display:flex;align-items:center;gap:10px;background:var(--creme-escuro);padding:9px;border:1px solid var(--areia);}
+.slider-row img{width:80px;height:48px;object-fit:cover;flex-shrink:0;}
+.slider-row span{flex:1;font-size:0.75rem;word-break:break-all;color:#555;}
+
+/* Edit inline */
+.edit-form{background:#fff;border:1px solid var(--verde-palido);padding:16px;margin-top:10px;display:none;}
+.edit-form.open{display:block;}
+
+/* Alerta imagem */
+.img-warn{font-size:0.72rem;color:#8a6500;background:#fff8e1;padding:9px 13px;border:1px solid #ffe082;border-radius:2px;margin-top:8px;display:none;}
 
 /* Responsive */
 @media(max-width:900px){
   .nav-links{display:none;}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:var(--branco);padding:30px;border-bottom:1px solid var(--areia);gap:20px;z-index:800;}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:var(--branco);padding:26px 5%;border-bottom:1px solid var(--areia);gap:18px;z-index:800;}
   .hamburger{display:flex;}
-  .slider-title{font-size:3.2rem;}
   .home-destaque-inner{grid-template-columns:1fr;}
-  .home-mini-grid .container{grid-template-columns:1fr 1fr;}
-  .colecao-grid{grid-template-columns:repeat(2,1fr);}
-  .curadoria-grid{grid-template-columns:repeat(2,1fr);}
-  .sobre-grid{grid-template-columns:1fr;}
-  .contato-grid{grid-template-columns:1fr;}
-  .admin-form-row{grid-template-columns:1fr;}
-  .loja-info-grid{grid-template-columns:1fr;}
+  .home-mini .container{grid-template-columns:1fr 1fr;}
+  .colecao-grid,.curadoria-grid{grid-template-columns:repeat(2,1fr);}
+  .sobre-grid,.contato-grid{grid-template-columns:1fr;}
+  .admin-row{grid-template-columns:1fr;}
+  .admin-row.trio{grid-template-columns:1fr 1fr;}
+  .page-header h1,.home-destaque h2{font-size:2.6rem;}
   .loja-hero-content h1{font-size:3rem;}
 }
-@media(max-width:480px){
-  .slider-title{font-size:2.4rem;}
-  .home-mini-grid .container{grid-template-columns:1fr;}
-  .colecao-grid{grid-template-columns:1fr;}
-  .curadoria-grid{grid-template-columns:1fr;}
+@media(max-width:500px){
+  .home-mini .container{grid-template-columns:1fr;}
+  .colecao-grid,.curadoria-grid{grid-template-columns:1fr;}
+  .admin-row.trio{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
-<header class="navbar" id="navbar">
+<header class="navbar">
   <div class="nav-inner">
-    <a href="#" class="logo" onclick="goPage('home')">GALERIA <span>SORRISO</span></a>
+    <a href="#" class="logo" onclick="goPage('home');return false;">GALERIA <span>SORRISO</span></a>
     <nav class="nav-links" id="navLinks">
-      <a href="#" onclick="goPage('home');closeMenu()">Home</a>
-      <a href="#" onclick="goPage('colecoes');closeMenu()">Coleções</a>
-      <a href="#" onclick="goPage('curadoria');closeMenu()">Curadoria</a>
-      <a href="#" onclick="goPage('loja');closeMenu()">Loja</a>
-      <a href="#" onclick="goPage('sobre');closeMenu()">Sobre</a>
-      <a href="#" onclick="goPage('contato');closeMenu()">Contato</a>
-      <button class="nav-admin-btn" onclick="openAdmin();closeMenu()">⚙ Admin</button>
+      <a href="#" onclick="goPage('home');closeMenu();return false;">Home</a>
+      <a href="#" onclick="goPage('colecoes');closeMenu();return false;">Coleções</a>
+      <a href="#" onclick="goPage('curadoria');closeMenu();return false;">Curadoria</a>
+      <a href="#" onclick="goPage('loja');closeMenu();return false;">Loja</a>
+      <a href="#" onclick="goPage('sobre');closeMenu();return false;">Sobre</a>
+      <a href="#" onclick="goPage('contato');closeMenu();return false;">Contato</a>
+      <button type="button" class="nav-admin-btn" onclick="openAdmin();closeMenu();">⚙ Admin</button>
     </nav>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <button type="button" class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -414,46 +283,34 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
 
 <!-- ====== HOME ====== -->
 <div class="page active" id="page-home">
-
-  <!-- SLIDER -->
   <div class="slider-wrap" id="sliderWrap">
     <div id="slidesContainer"></div>
-    <div class="slider-content" id="sliderContent">
-      <p class="slider-tag" id="sliderTag">COLEÇÕES DIGITAIS CONTEMPORÂNEAS</p>
-      <h1 class="slider-title" id="sliderTitle">Galeria <em>Sorriso</em></h1>
-      <p class="slider-sub" id="sliderSub">Arte digital brasileira com alma, cor e intenção.</p>
-      <div class="slider-btns">
-        <a href="#" class="btn-hero-main" onclick="goPage('colecoes');return false;">Explorar Coleções</a>
-        <a href="#" class="btn-hero-out" onclick="goPage('loja');return false;">Visitar Loja</a>
+    <div class="slider-bottom">
+      <div class="slider-dots" id="sliderDots"></div>
+      <div class="slider-arrows">
+        <button type="button" class="slider-arrow" onclick="prevSlide()">&#8592;</button>
+        <button type="button" class="slider-arrow" onclick="nextSlide()">&#8594;</button>
       </div>
-    </div>
-    <div class="slider-dots" id="sliderDots"></div>
-    <div class="slider-arrows">
-      <button class="slider-arrow" onclick="prevSlide()">&#8592;</button>
-      <button class="slider-arrow" onclick="nextSlide()">&#8594;</button>
     </div>
   </div>
 
-  <!-- DESTAQUE -->
-  <section class="home-destaque" id="homeDestaque">
+  <section class="home-destaque">
     <div class="container home-destaque-inner">
-      <div class="home-destaque-texto">
+      <div>
         <span class="home-destaque-tag">COLEÇÃO EM DESTAQUE</span>
-        <h2 id="destaqueNome">Carregando...</h2>
-        <p id="destaqueDesc">Selecione uma coleção em destaque no painel administrativo.</p>
-        <a href="#" class="btn-verde" id="destaqueBtn" onclick="goPage('colecoes');return false;">Ver Coleção</a>
+        <h2 id="destaqueNome">Carregando…</h2>
+        <p id="destaqueDesc"></p>
+        <a href="#" class="btn-verde" onclick="goPage('colecoes');return false;">Ver Coleção</a>
       </div>
       <div class="home-destaque-img">
-        <img id="destaqueImg" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="">
+        <img id="destaqueImg" src="" alt="">
       </div>
     </div>
   </section>
 
-  <!-- MINI GRID -->
-  <section class="home-mini-grid">
+  <section class="home-mini">
     <div class="container" id="homeMiniGrid"></div>
   </section>
-
 </div>
 
 <!-- ====== COLEÇÕES ====== -->
@@ -489,30 +346,7 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
     <div class="loja-hero-content">
       <h1 id="lojaTitulo">Loja Digital</h1>
       <p id="lojaDesc">Adquira nossas coleções digitais com download imediato após a compra.</p>
-      <a href="https://www.etsy.com/pt/shop/GaleriaSorriso" target="_blank" class="btn-etsy">
-        🛍 Visitar Loja na Etsy
-      </a>
-    </div>
-  </div>
-  <div class="loja-info">
-    <div class="container">
-      <div class="loja-info-grid">
-        <div class="loja-info-item">
-          <div class="loja-icon">🖼</div>
-          <h3>Arte Digital</h3>
-          <p>Imagens em alta resolução para impressão, uso digital ou decoração.</p>
-        </div>
-        <div class="loja-info-item">
-          <div class="loja-icon">⚡</div>
-          <h3>Download Automático</h3>
-          <p>Após a compra na Etsy, o arquivo em alta resolução é liberado imediatamente.</p>
-        </div>
-        <div class="loja-info-item">
-          <div class="loja-icon">🌿</div>
-          <h3>Curadoria Brasileira</h3>
-          <p>Arte inspirada na natureza, cultura e identidade do Brasil contemporâneo.</p>
-        </div>
-      </div>
+      <a href="https://www.etsy.com/pt/shop/GaleriaSorriso" target="_blank" class="btn-etsy">🛍 Visitar Loja na Etsy</a>
     </div>
   </div>
 </div>
@@ -547,64 +381,55 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
         <div class="contato-links">
           <a href="https://www.instagram.com/galeriasorrisomt/" target="_blank" class="contato-link-item">
             <span class="contato-link-icon">📸</span>
-            <div class="contato-link-text">
-              <span class="contato-link-label">Instagram</span>
-              @galeriasorrisomt
-            </div>
+            <div class="contato-link-text"><span class="contato-link-label">Instagram</span>@galeriasorrisomt</div>
           </a>
           <a href="https://www.etsy.com/pt/shop/GaleriaSorriso" target="_blank" class="contato-link-item">
             <span class="contato-link-icon">🛍</span>
-            <div class="contato-link-text">
-              <span class="contato-link-label">Etsy</span>
-              GaleriaSorriso
-            </div>
+            <div class="contato-link-text"><span class="contato-link-label">Etsy</span>GaleriaSorriso</div>
           </a>
           <a href="mailto:brinstantdownload@gmail.com" class="contato-link-item">
             <span class="contato-link-icon">✉</span>
-            <div class="contato-link-text">
-              <span class="contato-link-label">E-mail</span>
-              brinstantdownload@gmail.com
-            </div>
+            <div class="contato-link-text"><span class="contato-link-label">E-mail</span>brinstantdownload@gmail.com</div>
           </a>
           <div class="contato-link-item" style="cursor:default;">
             <span class="contato-link-icon">📍</span>
-            <div class="contato-link-text">
-              <span class="contato-link-label">Localização</span>
-              Sorriso, Mato Grosso — Brasil
-            </div>
+            <div class="contato-link-text"><span class="contato-link-label">Localização</span>Sorriso, Mato Grosso — Brasil</div>
           </div>
         </div>
       </div>
-      <div class="contato-form">
+      <div class="contato-form-wrap">
         <h2>Enviar mensagem</h2>
+        <!-- FormSubmit.co — substitua pelo seu email abaixo -->
         <div class="form-group">
-          <label class="admin-label">Nome</label>
-          <input type="text" id="ctNome" class="admin-input" placeholder="Seu nome">
+          <label class="form-label" for="ctNome">Nome</label>
+          <input type="text" id="ctNome" class="form-input" placeholder="Seu nome">
         </div>
         <div class="form-group">
-          <label class="admin-label">E-mail</label>
-          <input type="email" id="ctEmail" class="admin-input" placeholder="seu@email.com">
+          <label class="form-label" for="ctEmail">E-mail</label>
+          <input type="email" id="ctEmail" class="form-input" placeholder="seu@email.com">
         </div>
         <div class="form-group">
-          <label class="admin-label">Mensagem</label>
-          <textarea id="ctMsg" class="admin-textarea" placeholder="Sua mensagem..."></textarea>
+          <label class="form-label" for="ctMsg">Mensagem</label>
+          <textarea id="ctMsg" class="form-textarea" placeholder="Sua mensagem..."></textarea>
         </div>
-        <button class="btn-verde" onclick="enviarContato()" style="width:100%;padding:16px;">Enviar Mensagem</button>
-        <div class="form-success" id="contatoSuccess">✓ Mensagem enviada com sucesso! Responderei em breve.</div>
+        <button type="button" class="btn-verde" onclick="enviarContato()" style="width:100%;padding:15px;" id="ctBtn">Enviar Mensagem</button>
+        <p class="form-note">Ao clicar em Enviar, seu aplicativo de e-mail abrirá com a mensagem pronta. Se preferir, escreva diretamente para <strong>brinstantdownload@gmail.com</strong></p>
+        <div class="form-success" id="contatoOk">✓ Mensagem enviada! Responderei em breve.</div>
+        <div class="form-error" id="contatoErr">Preencha todos os campos.</div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer class="footer" id="siteFooter">
+<footer class="footer">
   <div class="container">
     <div class="footer-logo">GALERIA SORRISO</div>
     <div class="footer-links">
-      <a href="#" onclick="goPage('home')">Home</a>
-      <a href="#" onclick="goPage('colecoes')">Coleções</a>
-      <a href="#" onclick="goPage('curadoria')">Curadoria</a>
-      <a href="#" onclick="goPage('loja')">Loja</a>
+      <a href="#" onclick="goPage('home');return false;">Home</a>
+      <a href="#" onclick="goPage('colecoes');return false;">Coleções</a>
+      <a href="#" onclick="goPage('curadoria');return false;">Curadoria</a>
+      <a href="#" onclick="goPage('loja');return false;">Loja</a>
       <a href="https://www.etsy.com/pt/shop/GaleriaSorriso" target="_blank">Etsy</a>
       <a href="https://www.instagram.com/galeriasorrisomt/" target="_blank">Instagram</a>
     </div>
@@ -617,224 +442,153 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
   <div class="modal">
     <div class="modal-header">
       <h2 id="adminModalTitle">Painel Administrativo</h2>
-      <button class="modal-close" onclick="closeAdmin()">✕</button>
+      <button type="button" class="modal-close" onclick="closeAdmin()">✕</button>
     </div>
     <div class="modal-body" id="adminModalBody">
-      <!-- Login -->
+
+      <!-- LOGIN -->
       <div id="adminLogin">
         <div class="login-wrap">
           <h3>Acesso Restrito</h3>
-          <p>Digite a senha para acessar o painel</p>
-          <div class="form-group" style="margin-bottom:16px;">
-            <input type="password" id="adminPwd" class="admin-input" placeholder="Senha" onkeyup="if(event.key==='Enter')doLogin()">
+          <p>Senha padrão: <strong>galeria2025</strong></p>
+          <div style="margin-bottom:14px;">
+            <input type="password" id="adminPwd" class="ainput" placeholder="Senha" onkeydown="if(event.key==='Enter'){event.preventDefault();doLogin();}">
           </div>
-          <button class="admin-btn admin-btn-verde" onclick="doLogin()" style="width:100%;padding:14px;">Entrar</button>
-          <div class="admin-msg" id="loginMsg" style="display:none;margin-top:12px;">Senha incorreta.</div>
+          <button type="button" class="abtn abtn-g" onclick="doLogin()" style="width:100%;padding:13px;">Entrar</button>
+          <div class="amsg er" id="loginMsg" style="margin-top:10px;">Senha incorreta.</div>
         </div>
       </div>
 
-      <!-- Painel -->
+      <!-- PAINEL -->
       <div id="adminPainel" style="display:none;">
-        <div class="admin-tabs">
-          <button class="admin-tab active" onclick="showTab('tabHome')">🏠 Home</button>
-          <button class="admin-tab" onclick="showTab('tabColecoes')">🖼 Coleções</button>
-          <button class="admin-tab" onclick="showTab('tabDestaque')">⭐ Destaque</button>
-          <button class="admin-tab" onclick="showTab('tabSobre')">👤 Sobre</button>
-          <button class="admin-tab" onclick="showTab('tabTextos')">✏ Textos</button>
-          <button class="admin-tab" onclick="showTab('tabSenha')">🔒 Senha</button>
+        <div class="admin-tabs" id="adminTabs">
+          <button type="button" class="admin-tab active" onclick="showTab('tabHome',this)">🏠 Home</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabColecoes',this)">🖼 Coleções</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabObras',this)">🎨 Obras</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabDestaque',this)">⭐ Destaque</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabSobre',this)">👤 Sobre</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabTextos',this)">✏ Textos/Loja</button>
+          <button type="button" class="admin-tab" onclick="showTab('tabSenha',this)">🔒 Senha</button>
         </div>
 
         <!-- TAB HOME -->
         <div class="admin-panel active" id="tabHome">
           <div class="admin-section-title">Slider da Home — Imagens (máx. 10)</div>
-          <p style="font-size:0.8rem;color:#888;margin-bottom:18px;">Cole URLs de imagens (uma por linha). Recomendado: Unsplash, Imgur, ou Google Drive com link direto.</p>
-          <label class="admin-label">URLs das imagens do slider (uma por linha)</label>
-          <textarea class="admin-textarea" id="sliderUrlsInput" style="height:160px;font-size:0.78rem;" placeholder="https://images.unsplash.com/...&#10;https://...&#10;até 10 URLs"></textarea>
-          <div style="margin-top:12px;display:flex;gap:10px;">
-            <button class="admin-btn admin-btn-verde" onclick="saveSlider()">Salvar Slider</button>
+          <div class="img-warn" id="imgWarn">⚠ Atenção: sites como postimg.cc e alguns outros bloqueiam exibição em outros domínios. Prefira <strong>Imgur</strong> (imgur.com), <strong>Imgbb</strong> (imgbb.com) ou imagens do <strong>Google Drive</strong> (com link direto).</div>
+          <p style="font-size:0.78rem;color:#888;margin-bottom:14px;">Cole uma URL por linha. As imagens aparecerão em ordem no slider.</p>
+          <label class="alabel">URLs das imagens (uma por linha, máx. 10)</label>
+          <textarea class="atextarea" id="sliderUrlsInput" style="height:150px;font-size:0.76rem;" placeholder="https://i.imgur.com/...&#10;https://i.ibb.co/...&#10;..."></textarea>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;">
+            <button type="button" class="abtn abtn-g" onclick="saveSlider()">Salvar Slider</button>
+            <span style="font-size:0.72rem;color:#888;">As imagens abaixo confirmam o que está salvo</span>
           </div>
-          <div class="admin-msg" id="sliderMsg"></div>
-          <div class="slider-img-list" id="sliderImgList"></div>
+          <div class="amsg ok" id="sliderMsg"></div>
+          <div class="slider-list" id="sliderImgList"></div>
         </div>
 
         <!-- TAB COLEÇÕES -->
         <div class="admin-panel" id="tabColecoes">
-          <div class="admin-section-title">Gerenciar Coleções</div>
+          <div class="admin-section-title">Coleções</div>
 
-          <!-- Nova coleção -->
-          <div style="background:var(--creme-escuro);padding:24px;border:1px solid var(--areia);margin-bottom:28px;">
-            <p style="font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--verde);margin-bottom:18px;">Nova Coleção</p>
-            <div class="admin-form-row">
-              <div>
-                <label class="admin-label">Nome da Coleção</label>
-                <input type="text" id="colNome" class="admin-input" placeholder="Ex: Sertão Vivo">
-              </div>
-              <div>
-                <label class="admin-label">Imagem de Capa (URL)</label>
-                <input type="text" id="colCapa" class="admin-input" placeholder="https://...">
-              </div>
+          <!-- Nova -->
+          <div class="a-box">
+            <span class="admin-sub-title" style="margin-top:0;">+ Nova Coleção</span>
+            <div class="admin-row">
+              <div><label class="alabel">Nome da Coleção *</label><input type="text" id="colNome" class="ainput" placeholder="Ex: Sertão Vivo"></div>
+              <div><label class="alabel">Imagem de Capa (URL)</label><input type="text" id="colCapa" class="ainput" placeholder="https://i.imgur.com/..."></div>
             </div>
-            <div class="admin-form-row full">
+            <div class="admin-row full">
+              <div><label class="alabel">Descrição</label><textarea class="atextarea" id="colDesc" style="height:65px;" placeholder="Breve descrição…"></textarea></div>
+            </div>
+            <div class="admin-row full">
               <div>
-                <label class="admin-label">Descrição</label>
-                <textarea class="admin-textarea" id="colDesc" placeholder="Breve descrição da coleção..." style="height:70px;"></textarea>
+                <label class="alabel">Temas de curadoria desta coleção</label>
+                <div class="check-row" id="colTemas"></div>
               </div>
             </div>
-            <div class="admin-form-row full">
-              <div>
-                <label class="admin-label">Temas de Curadoria (selecione todos que se aplicam à coleção)</label>
-                <div class="admin-check-row" id="colTemas"></div>
-              </div>
-            </div>
-            <div style="margin-top:18px;">
-              <button class="admin-btn admin-btn-verde" onclick="saveColecao()">+ Criar Coleção</button>
-            </div>
-            <div class="admin-msg" id="colMsg"></div>
+            <div style="margin-top:16px;"><button type="button" class="abtn abtn-g" onclick="saveColecao()">+ Criar Coleção</button></div>
+            <div class="amsg ok" id="colMsg"></div>
           </div>
 
-          <!-- Lista de coleções -->
-          <div class="admin-section-title" style="margin-top:20px;">Coleções Cadastradas</div>
-          <div id="colecoesList"></div>
+          <!-- Lista -->
+          <div class="admin-section-title">Coleções Cadastradas</div>
+          <div id="colecoesList"><p style="color:#aaa;font-size:0.82rem;">Nenhuma coleção ainda.</p></div>
+        </div>
 
-          <!-- Adicionar obra a coleção -->
-          <div style="background:var(--creme-escuro);padding:24px;border:1px solid var(--areia);margin-top:28px;">
-            <p style="font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--verde);margin-bottom:18px;">Adicionar Obras a uma Coleção</p>
-            <div class="admin-form-row">
+        <!-- TAB OBRAS -->
+        <div class="admin-panel" id="tabObras">
+          <div class="admin-section-title">Obras / Imagens</div>
+
+          <!-- Nova obra -->
+          <div class="a-box">
+            <span class="admin-sub-title" style="margin-top:0;">+ Nova Obra</span>
+            <div class="admin-row">
+              <div><label class="alabel">Coleção *</label><select id="obraColecao" class="aselect"><option value="">Selecione…</option></select></div>
+              <div><label class="alabel">Título da Obra *</label><input type="text" id="obraTitulo" class="ainput" placeholder="Nome da obra"></div>
+            </div>
+            <div class="admin-row full">
+              <div><label class="alabel">URL da Imagem (baixa resolução) *</label><input type="text" id="obraImg" class="ainput" placeholder="https://i.imgur.com/..."></div>
+            </div>
+            <div class="admin-row">
+              <div><label class="alabel">Dimensões disponíveis para impressão</label><input type="text" id="obraDims" class="ainput" placeholder="Ex: A4, 30x40cm, 50x70cm"></div>
+              <div><label class="alabel">Informações adicionais</label><input type="text" id="obraInfo" class="ainput" placeholder="Ex: 300dpi, fundo branco"></div>
+            </div>
+            <div class="admin-row full">
               <div>
-                <label class="admin-label">Selecionar Coleção</label>
-                <select id="obraColecao" class="admin-select"></select>
-              </div>
-              <div>
-                <label class="admin-label">Título da Obra</label>
-                <input type="text" id="obraTitulo" class="admin-input" placeholder="Nome da obra">
+                <label class="alabel">Temas desta obra</label>
+                <div class="check-row" id="obraTemas"></div>
               </div>
             </div>
-            <div class="admin-form-row full">
-              <div>
-                <label class="admin-label">URL da Imagem (baixa resolução)</label>
-                <input type="text" id="obraImg" class="admin-input" placeholder="https://...">
-              </div>
-            </div>
-            <div class="admin-form-row full">
-              <div>
-                <label class="admin-label">Temas desta obra</label>
-                <div class="admin-check-row" id="obraTemas"></div>
-              </div>
-            </div>
-            <div style="margin-top:16px;">
-              <button class="admin-btn admin-btn-verde" onclick="saveObra()">Adicionar Obra</button>
-            </div>
-            <div class="admin-msg" id="obraMsg"></div>
+            <div style="margin-top:16px;"><button type="button" class="abtn abtn-g" onclick="saveObra()">+ Adicionar Obra</button></div>
+            <div class="amsg ok" id="obraMsg"></div>
           </div>
 
-          <!-- Lista de obras -->
-          <div class="admin-section-title" style="margin-top:28px;">Obras Cadastradas</div>
-          <div id="obrasList"></div>
+          <!-- Lista obras -->
+          <div class="admin-section-title">Obras Cadastradas</div>
+          <div id="obrasList"><p style="color:#aaa;font-size:0.82rem;">Nenhuma obra ainda.</p></div>
         </div>
 
         <!-- TAB DESTAQUE -->
         <div class="admin-panel" id="tabDestaque">
           <div class="admin-section-title">Coleção em Destaque</div>
-          <p style="font-size:0.8rem;color:#888;margin-bottom:20px;">Selecione qual coleção aparecerá em destaque na Home.</p>
-          <label class="admin-label">Coleção em Destaque</label>
-          <select id="destaqueSelect" class="admin-select" style="margin-bottom:16px;"></select>
-          <div style="margin-top:12px;">
-            <button class="admin-btn admin-btn-verde" onclick="saveDestaque()">Salvar Destaque</button>
-          </div>
-          <div class="admin-msg" id="destaqueMsg"></div>
+          <p style="font-size:0.8rem;color:#888;margin-bottom:18px;">A coleção selecionada aparecerá em destaque na Home.</p>
+          <label class="alabel">Selecionar Coleção</label>
+          <select id="destaqueSelect" class="aselect" style="max-width:400px;"><option value="">Selecione…</option></select>
+          <div style="margin-top:14px;"><button type="button" class="abtn abtn-g" onclick="saveDestaque()">Salvar Destaque</button></div>
+          <div class="amsg ok" id="destaqueMsg"></div>
         </div>
 
         <!-- TAB SOBRE -->
         <div class="admin-panel" id="tabSobre">
           <div class="admin-section-title">Página Sobre</div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Título</label>
-              <input type="text" id="sobreAdmTitulo" class="admin-input">
-            </div>
+          <div class="admin-row full"><div><label class="alabel">Título</label><input type="text" id="sobreAdmTitulo" class="ainput"></div></div>
+          <div class="admin-row full"><div><label class="alabel">Texto (linha em branco = novo parágrafo)</label><textarea class="atextarea" id="sobreAdmTexto" style="height:160px;"></textarea></div></div>
+          <div class="admin-row">
+            <div><label class="alabel">Assinatura</label><input type="text" id="sobreAdmAssinatura" class="ainput"></div>
+            <div><label class="alabel">URL da sua Foto</label><input type="text" id="sobreAdmFoto" class="ainput" placeholder="https://..."></div>
           </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Texto (use linha em branco para separar parágrafos)</label>
-              <textarea class="admin-textarea" id="sobreAdmTexto" style="height:180px;"></textarea>
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Assinatura</label>
-              <input type="text" id="sobreAdmAssinatura" class="admin-input">
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">URL da Foto</label>
-              <input type="text" id="sobreAdmFoto" class="admin-input" placeholder="https://...">
-            </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="admin-btn admin-btn-verde" onclick="saveSobre()">Salvar Sobre</button>
-          </div>
-          <div class="admin-msg" id="sobreMsg"></div>
+          <div style="margin-top:14px;"><button type="button" class="abtn abtn-g" onclick="saveSobre()">Salvar Sobre</button></div>
+          <div class="amsg ok" id="sobreMsg"></div>
         </div>
 
-        <!-- TAB TEXTOS -->
+        <!-- TAB TEXTOS/LOJA -->
         <div class="admin-panel" id="tabTextos">
-          <div class="admin-section-title">Textos do Site</div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Texto do Slider (subtítulo)</label>
-              <input type="text" id="txtSliderSub" class="admin-input">
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Título da Loja</label>
-              <input type="text" id="txtLojaTitulo" class="admin-input">
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Descrição da Loja</label>
-              <textarea class="admin-textarea" id="txtLojaDesc" style="height:80px;"></textarea>
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">URL da Imagem de Fundo da Loja</label>
-              <input type="text" id="txtLojaBg" class="admin-input" placeholder="https://...">
-            </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="admin-btn admin-btn-verde" onclick="saveTextos()">Salvar Textos</button>
-          </div>
-          <div class="admin-msg" id="textosMsg"></div>
+          <div class="admin-section-title">Textos Gerais &amp; Loja</div>
+          <div class="admin-row full"><div><label class="alabel">Título da Loja (na página Loja)</label><input type="text" id="txtLojaTitulo" class="ainput"></div></div>
+          <div class="admin-row full"><div><label class="alabel">Descrição da Loja</label><textarea class="atextarea" id="txtLojaDesc" style="height:75px;"></textarea></div></div>
+          <div class="admin-row full"><div><label class="alabel">URL da Imagem de Fundo da Loja</label><input type="text" id="txtLojaBg" class="ainput" placeholder="https://..."></div></div>
+          <div style="margin-top:14px;"><button type="button" class="abtn abtn-g" onclick="saveTextos()">Salvar</button></div>
+          <div class="amsg ok" id="textosMsg"></div>
         </div>
 
         <!-- TAB SENHA -->
         <div class="admin-panel" id="tabSenha">
-          <div class="admin-section-title">Alterar Senha do Admin</div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Senha Atual</label>
-              <input type="password" id="senhaAtual" class="admin-input">
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Nova Senha</label>
-              <input type="password" id="senhaNova" class="admin-input">
-            </div>
-          </div>
-          <div class="admin-form-row full">
-            <div>
-              <label class="admin-label">Confirmar Nova Senha</label>
-              <input type="password" id="senhaConfirm" class="admin-input">
-            </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="admin-btn admin-btn-verde" onclick="saveSenha()">Alterar Senha</button>
-          </div>
-          <div class="admin-msg" id="senhaMsg"></div>
+          <div class="admin-section-title">Alterar Senha</div>
+          <div class="admin-row full"><div><label class="alabel">Senha Atual</label><input type="password" id="senhaAtual" class="ainput"></div></div>
+          <div class="admin-row full"><div><label class="alabel">Nova Senha</label><input type="password" id="senhaNova" class="ainput"></div></div>
+          <div class="admin-row full"><div><label class="alabel">Confirmar Nova Senha</label><input type="password" id="senhaConfirm" class="ainput"></div></div>
+          <div style="margin-top:14px;"><button type="button" class="abtn abtn-g" onclick="saveSenha()">Alterar Senha</button></div>
+          <div class="amsg ok" id="senhaMsg"></div>
         </div>
 
       </div><!-- /adminPainel -->
@@ -842,544 +596,700 @@ body{background:var(--creme);color:var(--preto);font-family:var(--font-body);ove
   </div>
 </div>
 
+<!-- MODAL EDITAR COLEÇÃO -->
+<div class="modal-overlay" id="editColModal">
+  <div class="modal" style="max-width:620px;">
+    <div class="modal-header">
+      <h2>Editar Coleção</h2>
+      <button type="button" class="modal-close" onclick="closeEditCol()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editColId">
+      <div class="admin-row"><div><label class="alabel">Nome *</label><input type="text" id="editColNome" class="ainput"></div><div><label class="alabel">Imagem de Capa (URL)</label><input type="text" id="editColCapa" class="ainput"></div></div>
+      <div class="admin-row full"><div><label class="alabel">Descrição</label><textarea class="atextarea" id="editColDesc" style="height:65px;"></textarea></div></div>
+      <div class="admin-row full"><div><label class="alabel">Temas</label><div class="check-row" id="editColTemas"></div></div></div>
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <button type="button" class="abtn abtn-g" onclick="updateColecao()">Salvar Alterações</button>
+        <button type="button" class="abtn abtn-o" onclick="closeEditCol()">Cancelar</button>
+      </div>
+      <div class="amsg ok" id="editColMsg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDITAR OBRA -->
+<div class="modal-overlay" id="editObraModal">
+  <div class="modal" style="max-width:680px;">
+    <div class="modal-header">
+      <h2>Editar Obra</h2>
+      <button type="button" class="modal-close" onclick="closeEditObra()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editObraId">
+      <div class="admin-row">
+        <div><label class="alabel">Coleção</label><select id="editObraColecao" class="aselect"></select></div>
+        <div><label class="alabel">Título *</label><input type="text" id="editObraTitulo" class="ainput"></div>
+      </div>
+      <div class="admin-row full"><div><label class="alabel">URL da Imagem</label><input type="text" id="editObraImg" class="ainput"></div></div>
+      <div class="admin-row">
+        <div><label class="alabel">Dimensões para impressão</label><input type="text" id="editObraDims" class="ainput" placeholder="Ex: A4, 30x40cm"></div>
+        <div><label class="alabel">Informações adicionais</label><input type="text" id="editObraInfo" class="ainput" placeholder="Ex: 300dpi"></div>
+      </div>
+      <div class="admin-row full"><div><label class="alabel">Temas</label><div class="check-row" id="editObraTemas"></div></div></div>
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <button type="button" class="abtn abtn-g" onclick="updateObra()">Salvar Alterações</button>
+        <button type="button" class="abtn abtn-o" onclick="closeEditObra()">Cancelar</button>
+      </div>
+      <div class="amsg ok" id="editObraMsg"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ===================================================
-   GALERIA SORRISO — Script Principal
-   =================================================== */
+/* ==========================================================
+   GALERIA SORRISO — Script v2
+   ========================================================== */
 
-// ---- TEMAS DE CURADORIA ----
-const TEMAS = [
-  'Natureza','Flora','Fauna',
-  'Brasilidade','Cultura',
-  'Geométrico','Minimalista','Clássicos','Contemporâneo',
-  'Preto & Branco','Coloridas','Arte com Causa'
+const TEMAS_RAW = [
+  'Arte com Causa','Brasilidade','Clássicos','Coloridas',
+  'Contemporâneo','Cultura','Fauna','Flora',
+  'Geométrico','Minimalista','Natureza','Preto & Branco'
 ];
+// Ordem curadoria: Todas primeiro, resto já está alfabético acima
+const TEMAS_CURADORIA = ['Todas', ...TEMAS_RAW];
+// Checkboxes do admin usam mesma lista alfabética (sem Todas)
+const TEMAS = TEMAS_RAW;
 
-// ---- DEFAULTS ----
-const DEFAULT_DATA = {
-  senha: 'galeria2025',
-  slider: [
-    'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1800&auto=format&fit=crop'
-  ],
-  colecoes: [
-    {
-      id:'col1', nome:'Brasil Contemporâneo',
-      capa:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=1200&auto=format&fit=crop',
-      desc:'Uma visão artística do Brasil moderno.',temas:['Brasilidade','Contemporâneo','Coloridas']
-    },
-    {
-      id:'col2', nome:'Natureza Brasileira',
-      capa:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',
-      desc:'Paisagens, flora e fauna do Brasil.',temas:['Natureza','Flora','Fauna']
-    },
-    {
-      id:'col3', nome:'Agro & Terra',
-      capa:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop',
-      desc:'A força da terra e do campo brasileiro.',temas:['Brasilidade','Natureza','Contemporâneo']
-    }
-  ],
-  obras: [
-    {id:'o1',colId:'col1',titulo:'Horizonte Verde',img:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=600&auto=format&fit=crop',temas:['Brasilidade','Contemporâneo']},
-    {id:'o2',colId:'col1',titulo:'Cores do Brasil',img:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600&auto=format&fit=crop',temas:['Coloridas','Cultura']},
-    {id:'o3',colId:'col2',titulo:'Floresta Viva',img:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600&auto=format&fit=crop',temas:['Natureza','Flora']},
-    {id:'o4',colId:'col2',titulo:'Fauna Brasileira',img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=600&auto=format&fit=crop',temas:['Fauna','Natureza']},
-    {id:'o5',colId:'col3',titulo:'Terra Roxa',img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop',temas:['Brasilidade','Arte com Causa']},
-  ],
-  destaque:'col1',
-  sobre:{
-    titulo:'Curadoria visual com alma brasileira',
-    texto:'Um espaço dedicado à criação e curadoria de coleções digitais inspiradas na cultura brasileira, natureza e estética contemporânea.\n\nCada obra é pensada com intenção, cor e narrativa — para quem aprecia arte com significado.',
-    assinatura:'Galeria Sorriso',
-    foto:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop'
-  },
-  textos:{
-    sliderSub:'Arte digital brasileira com alma, cor e intenção.',
-    lojaTitulo:'Loja Digital',
-    lojaDesc:'Adquira nossas coleções digitais com download imediato após a compra.',
-    lojaBg:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=1800&auto=format&fit=crop'
-  }
-};
+/* ---------- STORAGE ---------- */
+const STORAGE_KEY = 'gs_v2';
 
-// ---- STORAGE ----
-function getData(){ return JSON.parse(localStorage.getItem('gs_data')||'null') || DEFAULT_DATA; }
-function setData(d){ localStorage.setItem('gs_data',JSON.stringify(d)); }
-function uid(){ return 'id'+Date.now()+Math.random().toString(36).slice(2,6); }
+function getDefaultData(){
+  return {
+    senha:'galeria2025',
+    slider:[
+      'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1800&auto=format&fit=crop'
+    ],
+    colecoes:[
+      {id:'col1',nome:'Brasil Contemporâneo',capa:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=1200&auto=format&fit=crop',desc:'Uma visão artística do Brasil moderno.',temas:['Brasilidade','Contemporâneo','Coloridas']},
+      {id:'col2',nome:'Natureza Brasileira',capa:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop',desc:'Paisagens, flora e fauna do Brasil.',temas:['Natureza','Flora','Fauna']},
+      {id:'col3',nome:'Agro & Terra',capa:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop',desc:'A força da terra e do campo.',temas:['Brasilidade','Natureza','Contemporâneo']}
+    ],
+    obras:[
+      {id:'o1',colId:'col1',titulo:'Horizonte Verde',img:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=600&auto=format&fit=crop',dims:'A4, 30x40cm',info:'300dpi',temas:['Brasilidade','Contemporâneo']},
+      {id:'o2',colId:'col1',titulo:'Cores do Brasil',img:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600&auto=format&fit=crop',dims:'A4, 50x70cm',info:'',temas:['Coloridas','Cultura']},
+      {id:'o3',colId:'col2',titulo:'Floresta Viva',img:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600&auto=format&fit=crop',dims:'30x40cm, 50x70cm',info:'',temas:['Natureza','Flora']},
+      {id:'o4',colId:'col2',titulo:'Fauna Brasileira',img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=600&auto=format&fit=crop',dims:'A4',info:'',temas:['Fauna','Natureza']},
+      {id:'o5',colId:'col3',titulo:'Terra Roxa',img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop',dims:'30x40cm',info:'fundo branco',temas:['Brasilidade','Arte com Causa']}
+    ],
+    destaque:'col1',
+    sobre:{titulo:'Curadoria visual com alma brasileira',texto:'Um espaço dedicado à criação e curadoria de coleções digitais inspiradas na cultura brasileira, natureza e estética contemporânea.\n\nCada obra é pensada com intenção, cor e narrativa — para quem aprecia arte com significado.',assinatura:'Galeria Sorriso',foto:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop'},
+    textos:{lojaTitulo:'Loja Digital',lojaDesc:'Adquira nossas coleções digitais com download imediato após a compra.',lojaBg:'https://images.unsplash.com/photo-1516302350523-fec965b3ed97?q=80&w=1800&auto=format&fit=crop'}
+  };
+}
 
-// ---- NAVIGATION ----
+function getData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return getDefaultData();
+    const saved = JSON.parse(raw);
+    // Mescla com default para campos novos
+    const def = getDefaultData();
+    return {
+      senha: saved.senha || def.senha,
+      slider: saved.slider || def.slider,
+      colecoes: saved.colecoes || def.colecoes,
+      obras: saved.obras || def.obras,
+      destaque: saved.destaque || def.destaque,
+      sobre: Object.assign({},def.sobre, saved.sobre||{}),
+      textos: Object.assign({},def.textos, saved.textos||{})
+    };
+  } catch(e){ return getDefaultData(); }
+}
+
+function setData(d){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+  catch(e){ alert('Erro ao salvar: '+e.message); }
+}
+
+function uid(){ return 'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,5); }
+
+/* ---------- NAV ---------- */
 function goPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el = document.getElementById('page-'+page);
   if(el){ el.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
   renderPage(page);
 }
-
 function renderPage(page){
   if(page==='home') renderHome();
-  if(page==='colecoes') renderColecoes();
-  if(page==='curadoria') renderCuradoria();
-  if(page==='sobre') renderSobre();
-  if(page==='loja') renderLoja();
+  else if(page==='colecoes') renderColecoes();
+  else if(page==='curadoria') renderCuradoria();
+  else if(page==='loja') renderLoja();
+  else if(page==='sobre') renderSobre();
 }
+function toggleMenu(){ document.getElementById('navLinks').classList.toggle('open'); }
+function closeMenu(){ document.getElementById('navLinks').classList.remove('open'); }
 
-// ---- HAMBURGER ----
-function toggleMenu(){
-  const nl=document.getElementById('navLinks');
-  nl.classList.toggle('open');
-}
-function closeMenu(){
-  document.getElementById('navLinks').classList.remove('open');
-}
-
-// ===== SLIDER =====
-let slideIdx=0, slideTimer;
+/* ---------- SLIDER ---------- */
+let slideIdx = 0, slideTimer = null;
 
 function renderHome(){
-  const d=getData();
-  const imgs=d.slider||[];
-  const container=document.getElementById('slidesContainer');
-  const dots=document.getElementById('sliderDots');
-  container.innerHTML='';dots.innerHTML='';
+  const d = getData();
+  const imgs = (d.slider||[]).filter(u=>u&&u.startsWith('http'));
+  const cont = document.getElementById('slidesContainer');
+  const dots = document.getElementById('sliderDots');
+  cont.innerHTML = ''; dots.innerHTML = '';
+  clearInterval(slideTimer);
+  slideIdx = 0;
 
   imgs.forEach((url,i)=>{
-    const s=document.createElement('div');
-    s.className='slide'+(i===0?' active':'');
-    s.innerHTML=`<img src="${url}" alt="" loading="${i===0?'eager':'lazy'}"><div class="slide-overlay"></div>`;
-    container.appendChild(s);
-    const dot=document.createElement('div');
-    dot.className='dot'+(i===0?' active':'');
-    dot.onclick=()=>goSlide(i);
+    const s = document.createElement('div');
+    s.className = 'slide' + (i===0?' active':'');
+    s.innerHTML = `<img src="${escH(url)}" alt="" loading="${i===0?'eager':'lazy'}"><div class="slide-overlay"></div>`;
+    cont.appendChild(s);
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i===0?' active':'');
+    dot.onclick = ()=>goSlide(i);
     dots.appendChild(dot);
   });
 
-  // Slider text
-  document.getElementById('sliderSub').textContent=d.textos?.sliderSub||DEFAULT_DATA.textos.sliderSub;
-
-  clearInterval(slideTimer);
-  slideTimer=setInterval(nextSlide,5000);
-  slideIdx=0;
-
-  // Destaque
+  if(imgs.length>1) slideTimer = setInterval(nextSlide, 5500);
   renderDestaqueHome();
   renderMiniGrid();
 }
 
 function goSlide(n){
-  const slides=document.querySelectorAll('.slide');
-  const dots=document.querySelectorAll('.dot');
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  if(!slides.length) return;
   slides.forEach(s=>s.classList.remove('active'));
   dots.forEach(d=>d.classList.remove('active'));
-  slideIdx=((n%slides.length)+slides.length)%slides.length;
-  if(slides[slideIdx]) slides[slideIdx].classList.add('active');
+  slideIdx = ((n % slides.length) + slides.length) % slides.length;
+  slides[slideIdx].classList.add('active');
   if(dots[slideIdx]) dots[slideIdx].classList.add('active');
 }
 function nextSlide(){ goSlide(slideIdx+1); }
 function prevSlide(){ goSlide(slideIdx-1); }
 
 function renderDestaqueHome(){
-  const d=getData();
-  const col=d.colecoes.find(c=>c.id===d.destaque)||d.colecoes[0];
+  const d = getData();
+  const col = d.colecoes.find(c=>c.id===d.destaque) || d.colecoes[0];
   if(!col) return;
-  document.getElementById('destaqueNome').textContent=col.nome;
-  document.getElementById('destaqueDesc').textContent=col.desc||'';
-  document.getElementById('destaqueImg').src=col.capa||'';
+  document.getElementById('destaqueNome').textContent = col.nome;
+  document.getElementById('destaqueDesc').textContent = col.desc||'';
+  const img = document.getElementById('destaqueImg');
+  img.src = col.capa||''; img.alt = col.nome;
 }
 
 function renderMiniGrid(){
-  const d=getData();
-  const grid=document.getElementById('homeMiniGrid');
-  const obras=d.obras.slice(0,6);
-  if(!obras.length){grid.innerHTML='';return;}
-  grid.innerHTML=obras.map(o=>`
+  const d = getData();
+  const grid = document.getElementById('homeMiniGrid');
+  const obras = d.obras.slice(0,6);
+  if(!obras.length){ grid.innerHTML=''; return; }
+  grid.innerHTML = obras.map(o=>`
     <div class="mini-card" onclick="goPage('colecoes')">
-      <img src="${o.img}" alt="${o.titulo}" loading="lazy">
-      <div class="mini-card-info">
-        <h4>${o.titulo}</h4>
+      <img src="${escH(o.img)}" alt="${escH(o.titulo)}" loading="lazy">
+      <div class="mini-info">
+        <h4>${escH(o.titulo)}</h4>
         <span>${(o.temas||[]).join(' · ')}</span>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-// ===== COLEÇÕES =====
+/* ---------- COLEÇÕES ---------- */
 function renderColecoes(){
-  const d=getData();
-  const container=document.getElementById('colecoesContainer');
-  if(!d.colecoes.length){container.innerHTML='<p style="padding:60px;text-align:center;color:#888;">Nenhuma coleção cadastrada ainda.</p>';return;}
-  container.innerHTML=d.colecoes.map(col=>{
-    const obras=d.obras.filter(o=>o.colId===col.id);
+  const d = getData();
+  const cont = document.getElementById('colecoesContainer');
+  if(!d.colecoes.length){
+    cont.innerHTML='<p style="padding:60px;text-align:center;color:#888;">Nenhuma coleção cadastrada ainda.</p>';
+    return;
+  }
+  cont.innerHTML = d.colecoes.map(col=>{
+    const obras = d.obras.filter(o=>o.colId===col.id);
     return `
       <div class="colecao-bloco">
         <div class="colecao-titulo-wrap">
-          <h2>${col.nome}</h2>
+          <h2>${escH(col.nome)}</h2>
           <div class="colecao-temas">${(col.temas||[]).map(t=>`<span class="tema-tag">${t}</span>`).join('')}</div>
         </div>
-        ${col.desc?`<p style="margin-bottom:28px;color:#5a5047;line-height:1.8;">${col.desc}</p>`:''}
+        ${col.desc?`<p class="colecao-desc">${escH(col.desc)}</p>`:''}
         ${obras.length?`
-        <div class="colecao-grid">
-          ${obras.map(o=>`
-            <div class="obra-card">
-              <img src="${o.img}" alt="${o.titulo}" loading="lazy">
-              <div class="obra-info">
-                <h4>${o.titulo}</h4>
-                <div class="obra-temas">${(o.temas||[]).join(' · ')}</div>
-              </div>
-            </div>
-          `).join('')}
-        </div>`:'<p style="color:#aaa;font-size:0.85rem;">Nenhuma obra nesta coleção ainda.</p>'}
-      </div>
-    `;
+          <div class="colecao-grid">
+            ${obras.map(o=>`
+              <div class="obra-card">
+                <img src="${escH(o.img)}" alt="${escH(o.titulo)}" loading="lazy" onerror="this.style.opacity='0.3'">
+                <div class="obra-info">
+                  <h4>${escH(o.titulo)}</h4>
+                  ${o.dims?`<div class="obra-dims">📐 ${escH(o.dims)}</div>`:''}
+                  ${o.info?`<div class="obra-dims">${escH(o.info)}</div>`:''}
+                  <div class="obra-temas">${(o.temas||[]).join(' · ')}</div>
+                </div>
+              </div>`).join('')}
+          </div>`
+        :'<p style="color:#aaa;font-size:0.85rem;padding:10px 0;">Nenhuma obra nesta coleção ainda.</p>'}
+      </div>`;
   }).join('');
 }
 
-// ===== CURADORIA =====
-let curadoriaFiltro='Todas';
+/* ---------- CURADORIA ---------- */
+let curFiltro = 'Todas';
 
 function renderCuradoria(){
-  const d=getData();
-  const filtrosEl=document.getElementById('curadoriaFiltros');
-  const gridEl=document.getElementById('curadoriaGrid');
+  const d = getData();
+  const filtrosEl = document.getElementById('curadoriaFiltros');
+  const gridEl = document.getElementById('curadoriaGrid');
 
-  const todos=['Todas',...TEMAS];
-  filtrosEl.innerHTML=todos.map(t=>`
-    <button class="filtro-btn${t===curadoriaFiltro?' active':''}" onclick="setCuradoriaFiltro('${t}')">${t}</button>
+  filtrosEl.innerHTML = TEMAS_CURADORIA.map(t=>`
+    <button type="button" class="filtro-btn${t===curFiltro?' active':''}" onclick="setCurFiltro('${escH(t)}')">${t}</button>
   `).join('');
 
-  let obras=d.obras;
-  if(curadoriaFiltro!=='Todas') obras=obras.filter(o=>(o.temas||[]).includes(curadoriaFiltro));
-  obras.sort((a,b)=>a.titulo.localeCompare(b.titulo));
+  let obras = d.obras.slice();
+  if(curFiltro!=='Todas') obras = obras.filter(o=>(o.temas||[]).includes(curFiltro));
+  obras.sort((a,b)=>a.titulo.localeCompare(b.titulo,'pt'));
 
   if(!obras.length){
-    gridEl.innerHTML='<div class="curadoria-empty" style="grid-column:1/-1;">Nenhuma obra neste tema ainda.</div>';
+    gridEl.innerHTML='<div class="curadoria-empty">Nenhuma obra neste tema ainda.</div>';
     return;
   }
-  gridEl.innerHTML=obras.map(o=>`
+  gridEl.innerHTML = obras.map(o=>`
     <div class="obra-card">
-      <img src="${o.img}" alt="${o.titulo}" loading="lazy">
+      <img src="${escH(o.img)}" alt="${escH(o.titulo)}" loading="lazy" onerror="this.style.opacity='0.3'">
       <div class="obra-info">
-        <h4>${o.titulo}</h4>
+        <h4>${escH(o.titulo)}</h4>
+        ${o.dims?`<div class="obra-dims">📐 ${escH(o.dims)}</div>`:''}
         <div class="obra-temas">${(o.temas||[]).join(' · ')}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function setCuradoriaFiltro(t){
-  curadoriaFiltro=t;
-  renderCuradoria();
-}
+function setCurFiltro(t){ curFiltro=t; renderCuradoria(); }
 
-// ===== LOJA =====
+/* ---------- LOJA ---------- */
 function renderLoja(){
-  const d=getData();
-  const t=d.textos||DEFAULT_DATA.textos;
-  document.getElementById('lojaTitulo').textContent=t.lojaTitulo||'Loja Digital';
-  document.getElementById('lojaDesc').textContent=t.lojaDesc||'';
-  if(t.lojaBg) document.getElementById('lojaBg').style.backgroundImage=`url('${t.lojaBg}')`;
+  const d = getData();
+  const t = d.textos;
+  document.getElementById('lojaTitulo').textContent = t.lojaTitulo||'Loja Digital';
+  document.getElementById('lojaDesc').textContent = t.lojaDesc||'';
+  if(t.lojaBg) document.getElementById('lojaBg').style.backgroundImage=`url('${escH(t.lojaBg)}')`;
 }
 
-// ===== SOBRE =====
+/* ---------- SOBRE ---------- */
 function renderSobre(){
-  const d=getData();
-  const s=d.sobre||DEFAULT_DATA.sobre;
-  document.getElementById('sobreTitulo').textContent=s.titulo;
-  document.getElementById('sobreAssinatura').textContent=s.assinatura;
-  if(s.foto) document.getElementById('sobreFoto').src=s.foto;
-  const paragrafos=s.texto.split('\n').filter(l=>l.trim());
-  document.getElementById('sobreTexto').innerHTML=paragrafos.map(p=>`<p style="line-height:1.9;color:#5a5047;margin-bottom:18px;font-weight:300;">${p}</p>`).join('');
+  const d = getData();
+  const s = d.sobre;
+  document.getElementById('sobreTitulo').textContent = s.titulo||'';
+  document.getElementById('sobreAssinatura').textContent = s.assinatura||'';
+  if(s.foto) document.getElementById('sobreFoto').src = s.foto;
+  const paras = (s.texto||'').split('\n').filter(l=>l.trim());
+  document.getElementById('sobreTexto').innerHTML = paras.map(p=>`<p style="line-height:1.9;color:#5a5047;margin-bottom:18px;font-weight:300;">${escH(p)}</p>`).join('');
 }
 
-// ===== CONTATO =====
+/* ---------- CONTATO ---------- */
 function enviarContato(){
-  const nome=document.getElementById('ctNome').value.trim();
-  const email=document.getElementById('ctEmail').value.trim();
-  const msg=document.getElementById('ctMsg').value.trim();
-  if(!nome||!email||!msg){alert('Por favor, preencha todos os campos.');return;}
-  const mailto=`mailto:brinstantdownload@gmail.com?subject=Contato%20Galeria%20Sorriso%20-%20${encodeURIComponent(nome)}&body=${encodeURIComponent('Nome: '+nome+'\nE-mail: '+email+'\n\nMensagem:\n'+msg)}`;
-  window.open(mailto,'_blank');
-  document.getElementById('contatoSuccess').style.display='block';
+  const nome = document.getElementById('ctNome').value.trim();
+  const email = document.getElementById('ctEmail').value.trim();
+  const msg = document.getElementById('ctMsg').value.trim();
+  const ok = document.getElementById('contatoOk');
+  const er = document.getElementById('contatoErr');
+  ok.style.display='none'; er.style.display='none';
+  if(!nome||!email||!msg){ er.style.display='block'; return; }
+  const subject = encodeURIComponent('Contato Galeria Sorriso — '+nome);
+  const body = encodeURIComponent('Nome: '+nome+'\nE-mail: '+email+'\n\nMensagem:\n'+msg);
+  window.location.href = `mailto:brinstantdownload@gmail.com?subject=${subject}&body=${body}`;
+  ok.style.display='block';
   document.getElementById('ctNome').value='';
   document.getElementById('ctEmail').value='';
   document.getElementById('ctMsg').value='';
-  setTimeout(()=>document.getElementById('contatoSuccess').style.display='none',5000);
+  setTimeout(()=>ok.style.display='none',6000);
 }
 
-// ===== ADMIN =====
+/* ---------- ADMIN ---------- */
 function openAdmin(){
-  const modal=document.getElementById('adminModal');
-  modal.classList.add('open');
+  document.getElementById('adminModal').classList.add('open');
   document.getElementById('adminLogin').style.display='block';
   document.getElementById('adminPainel').style.display='none';
   document.getElementById('adminPwd').value='';
-  document.getElementById('loginMsg').style.display='none';
-  setTimeout(()=>document.getElementById('adminPwd').focus(),100);
+  showAmsg('loginMsg','',true);
+  setTimeout(()=>document.getElementById('adminPwd').focus(),120);
 }
-function closeAdmin(){
-  document.getElementById('adminModal').classList.remove('open');
-}
+function closeAdmin(){ document.getElementById('adminModal').classList.remove('open'); }
+
 document.getElementById('adminModal').addEventListener('click',function(e){
   if(e.target===this) closeAdmin();
 });
+document.getElementById('editColModal').addEventListener('click',function(e){
+  if(e.target===this) closeEditCol();
+});
+document.getElementById('editObraModal').addEventListener('click',function(e){
+  if(e.target===this) closeEditObra();
+});
 
 function doLogin(){
-  const d=getData();
-  const pwd=document.getElementById('adminPwd').value;
-  const msg=document.getElementById('loginMsg');
-  if(pwd===(d.senha||DEFAULT_DATA.senha)){
+  const d = getData();
+  const pwd = document.getElementById('adminPwd').value;
+  if(pwd===(d.senha||'galeria2025')){
     document.getElementById('adminLogin').style.display='none';
     document.getElementById('adminPainel').style.display='block';
-    document.getElementById('adminModalTitle').textContent='⚙ Painel Administrativo';
     loadAdminData();
   } else {
-    msg.textContent='Senha incorreta.';
-    msg.style.display='block';
-    msg.style.background='#fde8e8';
-    msg.style.color='#c0392b';
+    const m = document.getElementById('loginMsg');
+    m.textContent='Senha incorreta.'; m.className='amsg er'; m.style.display='block';
   }
 }
 
-function showTab(tabId){
+function showTab(tabId, btn){
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+  if(btn) btn.classList.add('active');
 }
 
-function showMsg(id,text,ok=true){
+function showAmsg(id, text, hide){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(hide||!text){ el.style.display='none'; return; }
+  el.textContent = text;
+  el.style.display = 'block';
+  setTimeout(()=>{ if(el) el.style.display='none'; }, 3500);
+}
+
+function showOk(id, text){ 
   const el=document.getElementById(id);
-  el.textContent=text;
-  el.style.display='block';
-  el.style.background=ok?'var(--verde-palido)':'#fde8e8';
-  el.style.color=ok?'var(--verde)':'#c0392b';
-  setTimeout(()=>el.style.display='none',3500);
+  if(!el)return;
+  el.textContent=text; el.className='amsg ok'; el.style.display='block';
+  setTimeout(()=>{if(el)el.style.display='none';},3500);
+}
+function showEr(id, text){ 
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.textContent=text; el.className='amsg er'; el.style.display='block';
+  setTimeout(()=>{if(el)el.style.display='none';},4000);
 }
 
+/* ---- Carregar dados no admin ---- */
 function loadAdminData(){
-  const d=getData();
-  // SLIDER
-  const urls=(d.slider||[]).join('\n');
-  document.getElementById('sliderUrlsInput').value=urls;
+  const d = getData();
+  // Slider
+  document.getElementById('sliderUrlsInput').value = (d.slider||[]).join('\n');
   renderSliderList(d.slider||[]);
-  // TEMAS checkboxes col
-  buildTemasCheckboxes('colTemas','col_tema_');
-  buildTemasCheckboxes('obraTemas','obra_tema_');
-  // SELECT coleções
+  // Checkboxes
+  buildChecks('colTemas','ct_');
+  buildChecks('obraTemas','ot_');
+  buildChecks('editColTemas','ect_');
+  buildChecks('editObraTemas','eot_');
+  // Selects
   buildColSelect('obraColecao');
   buildColSelect('destaqueSelect');
-  // Destaque select
-  document.getElementById('destaqueSelect').value=d.destaque||'';
+  buildColSelect('editObraColecao');
+  document.getElementById('destaqueSelect').value = d.destaque||'';
   // Sobre
-  const s=d.sobre||DEFAULT_DATA.sobre;
-  document.getElementById('sobreAdmTitulo').value=s.titulo||'';
-  document.getElementById('sobreAdmTexto').value=s.texto||'';
-  document.getElementById('sobreAdmAssinatura').value=s.assinatura||'';
-  document.getElementById('sobreAdmFoto').value=s.foto||'';
+  const s = d.sobre;
+  document.getElementById('sobreAdmTitulo').value = s.titulo||'';
+  document.getElementById('sobreAdmTexto').value = s.texto||'';
+  document.getElementById('sobreAdmAssinatura').value = s.assinatura||'';
+  document.getElementById('sobreAdmFoto').value = s.foto||'';
   // Textos
-  const t=d.textos||DEFAULT_DATA.textos;
-  document.getElementById('txtSliderSub').value=t.sliderSub||'';
-  document.getElementById('txtLojaTitulo').value=t.lojaTitulo||'';
-  document.getElementById('txtLojaDesc').value=t.lojaDesc||'';
-  document.getElementById('txtLojaBg').value=t.lojaBg||'';
-  // Lists
+  const t = d.textos;
+  document.getElementById('txtLojaTitulo').value = t.lojaTitulo||'';
+  document.getElementById('txtLojaDesc').value = t.lojaDesc||'';
+  document.getElementById('txtLojaBg').value = t.lojaBg||'';
+  // Listas
   renderAdminColList();
   renderAdminObrasList();
 }
 
-function buildTemasCheckboxes(containerId, prefix){
-  const container=document.getElementById(containerId);
-  container.innerHTML=TEMAS.map(t=>`
-    <label class="admin-check-label">
+function buildChecks(containerId, prefix){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  c.innerHTML = TEMAS.map(t=>`
+    <label class="check-lbl">
       <input type="checkbox" name="${prefix}" value="${t}">
       <span>${t}</span>
-    </label>
-  `).join('');
+    </label>`).join('');
 }
 
-function getCheckedTemas(prefix){
+function getChecked(prefix){
   return [...document.querySelectorAll(`input[name="${prefix}"]:checked`)].map(i=>i.value);
+}
+function setChecked(prefix, values){
+  document.querySelectorAll(`input[name="${prefix}"]`).forEach(i=>{
+    i.checked = (values||[]).includes(i.value);
+  });
 }
 
 function buildColSelect(selectId){
-  const d=getData();
-  const sel=document.getElementById(selectId);
-  sel.innerHTML='<option value="">Selecione...</option>'+
-    d.colecoes.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
+  const d = getData();
+  const sel = document.getElementById(selectId);
+  if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Selecione…</option>' +
+    d.colecoes.map(c=>`<option value="${escH(c.id)}">${escH(c.nome)}</option>`).join('');
+  if(cur) sel.value = cur;
 }
 
 function renderSliderList(imgs){
-  const el=document.getElementById('sliderImgList');
-  if(!imgs.length){el.innerHTML='<p style="color:#aaa;font-size:0.8rem;">Nenhuma imagem no slider.</p>';return;}
-  el.innerHTML=imgs.map((url,i)=>`
-    <div class="slider-img-row">
-      <img src="${url}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\'><rect width=\'80\' height=\'50\' fill=\'%23eee\'/></svg>'">
-      <span>${i+1}. ${url.length>60?url.slice(0,60)+'...':url}</span>
-    </div>
-  `).join('');
+  const el = document.getElementById('sliderImgList');
+  // Detectar postimg.cc para mostrar aviso
+  const hasPostimg = imgs.some(u=>u.includes('postimg'));
+  document.getElementById('imgWarn').style.display = hasPostimg?'block':'none';
+  if(!imgs.length){ el.innerHTML='<p style="color:#aaa;font-size:0.78rem;margin-top:10px;">Nenhuma imagem no slider.</p>'; return; }
+  el.innerHTML = imgs.map((url,i)=>`
+    <div class="slider-row">
+      <img src="${escH(url)}" alt="" onerror="this.style.opacity=0.2">
+      <span>${i+1}. ${url}</span>
+    </div>`).join('');
 }
 
 function renderAdminColList(){
-  const d=getData();
-  const el=document.getElementById('colecoesList');
-  if(!d.colecoes.length){el.innerHTML='<p style="color:#aaa;font-size:0.8rem;">Nenhuma coleção ainda.</p>';return;}
-  el.innerHTML=`<div class="admin-list">${d.colecoes.map(c=>`
-    <div class="admin-list-item">
-      <div class="admin-list-item-info">
-        <h4>${c.nome}</h4>
-        <span>${(c.temas||[]).join(' · ')||'Sem temas'}</span>
+  const d = getData();
+  const el = document.getElementById('colecoesList');
+  if(!d.colecoes.length){ el.innerHTML='<p style="color:#aaa;font-size:0.82rem;">Nenhuma coleção ainda.</p>'; return; }
+  el.innerHTML = `<div class="a-list">${d.colecoes.map(c=>`
+    <div class="a-item">
+      <div class="a-item-info">
+        <h4>${escH(c.nome)}</h4>
+        <span>${(c.temas||[]).join(' · ')||'sem tema'}</span>
       </div>
-      <div class="admin-list-item-actions">
-        <button class="admin-btn admin-btn-danger" onclick="deleteColecao('${c.id}')">Excluir</button>
+      <div class="a-item-actions">
+        <button type="button" class="abtn abtn-o" onclick="openEditCol('${c.id}')">✏ Editar</button>
+        <button type="button" class="abtn abtn-r" onclick="deleteColecao('${c.id}')">Excluir</button>
       </div>
-    </div>
-  `).join('')}</div>`;
+    </div>`).join('')}</div>`;
 }
 
 function renderAdminObrasList(){
-  const d=getData();
-  const el=document.getElementById('obrasList');
-  if(!d.obras.length){el.innerHTML='<p style="color:#aaa;font-size:0.8rem;">Nenhuma obra ainda.</p>';return;}
-  el.innerHTML=`<div class="admin-list">${d.obras.map(o=>{
-    const col=d.colecoes.find(c=>c.id===o.colId);
+  const d = getData();
+  const el = document.getElementById('obrasList');
+  if(!d.obras.length){ el.innerHTML='<p style="color:#aaa;font-size:0.82rem;">Nenhuma obra ainda.</p>'; return; }
+  el.innerHTML = `<div class="a-list">${d.obras.map(o=>{
+    const col = d.colecoes.find(c=>c.id===o.colId);
     return `
-      <div class="admin-list-item">
+      <div class="a-item">
         <div style="display:flex;gap:12px;align-items:center;">
-          <img src="${o.img}" style="width:60px;height:45px;object-fit:cover;" onerror="this.style.display='none'">
-          <div class="admin-list-item-info">
-            <h4>${o.titulo}</h4>
-            <span>${col?col.nome:'?'} · ${(o.temas||[]).join(', ')||'sem tema'}</span>
+          <img class="a-item-thumb" src="${escH(o.img)}" onerror="this.style.opacity=0.2">
+          <div class="a-item-info">
+            <h4>${escH(o.titulo)}</h4>
+            <span>${col?escH(col.nome):'?'} · ${o.dims||''} · ${(o.temas||[]).join(', ')||'sem tema'}</span>
           </div>
         </div>
-        <button class="admin-btn admin-btn-danger" onclick="deleteObra('${o.id}')">Excluir</button>
-      </div>
-    `;
+        <div class="a-item-actions">
+          <button type="button" class="abtn abtn-o" onclick="openEditObra('${o.id}')">✏ Editar</button>
+          <button type="button" class="abtn abtn-r" onclick="deleteObra('${o.id}')">Excluir</button>
+        </div>
+      </div>`;
   }).join('')}</div>`;
 }
 
-// SAVE SLIDER
+/* ---- SAVE SLIDER ---- */
 function saveSlider(){
-  const raw=document.getElementById('sliderUrlsInput').value;
-  let urls=raw.split('\n').map(u=>u.trim()).filter(u=>u.startsWith('http'));
-  if(urls.length>10) urls=urls.slice(0,10);
-  const d=getData(); d.slider=urls; setData(d);
+  const raw = document.getElementById('sliderUrlsInput').value;
+  let urls = raw.split('\n').map(u=>u.trim()).filter(u=>u.startsWith('http'));
+  if(urls.length>10) urls = urls.slice(0,10);
+  const d = getData(); d.slider = urls; setData(d);
   renderSliderList(urls);
-  showMsg('sliderMsg','Slider salvo com sucesso!');
+  showOk('sliderMsg','Slider salvo! ('+urls.length+' imagens)');
   renderHome();
 }
 
-// SAVE COLEÇÃO
+/* ---- SAVE COLEÇÃO ---- */
 function saveColecao(){
-  const nome=document.getElementById('colNome').value.trim();
-  if(!nome){showMsg('colMsg','Digite o nome da coleção.',false);return;}
-  const d=getData();
-  const nova={
-    id:uid(),nome,
+  const nome = document.getElementById('colNome').value.trim();
+  if(!nome){ showEr('colMsg','Digite o nome da coleção.'); return; }
+  const d = getData();
+  d.colecoes.push({
+    id:uid(), nome,
     capa:document.getElementById('colCapa').value.trim(),
     desc:document.getElementById('colDesc').value.trim(),
-    temas:getCheckedTemas('col_tema_')
-  };
-  d.colecoes.push(nova); setData(d);
+    temas:getChecked('ct_')
+  });
+  setData(d);
   document.getElementById('colNome').value='';
   document.getElementById('colCapa').value='';
   document.getElementById('colDesc').value='';
-  document.querySelectorAll('input[name="col_tema_"]').forEach(i=>i.checked=false);
-  showMsg('colMsg','Coleção criada!');
+  document.querySelectorAll('input[name="ct_"]').forEach(i=>i.checked=false);
+  showOk('colMsg','Coleção criada com sucesso!');
   renderAdminColList();
   buildColSelect('obraColecao');
   buildColSelect('destaqueSelect');
+  buildColSelect('editObraColecao');
 }
 
 function deleteColecao(id){
-  if(!confirm('Excluir esta coleção e todas as suas obras?')) return;
-  const d=getData();
-  d.colecoes=d.colecoes.filter(c=>c.id!==id);
-  d.obras=d.obras.filter(o=>o.colId!==id);
+  const d = getData();
+  const col = d.colecoes.find(c=>c.id===id);
+  if(!confirm(`Excluir a coleção "${col?col.nome:id}" e TODAS as suas obras?`)) return;
+  d.colecoes = d.colecoes.filter(c=>c.id!==id);
+  d.obras = d.obras.filter(o=>o.colId!==id);
+  if(d.destaque===id) d.destaque = d.colecoes[0]?.id||'';
   setData(d);
   renderAdminColList();
   renderAdminObrasList();
   buildColSelect('obraColecao');
   buildColSelect('destaqueSelect');
+  buildColSelect('editObraColecao');
 }
 
-// SAVE OBRA
+/* ---- EDITAR COLEÇÃO ---- */
+function openEditCol(id){
+  const d = getData();
+  const col = d.colecoes.find(c=>c.id===id);
+  if(!col) return;
+  buildChecks('editColTemas','ect_');
+  document.getElementById('editColId').value = id;
+  document.getElementById('editColNome').value = col.nome||'';
+  document.getElementById('editColCapa').value = col.capa||'';
+  document.getElementById('editColDesc').value = col.desc||'';
+  setChecked('ect_', col.temas||[]);
+  document.getElementById('editColModal').classList.add('open');
+}
+function closeEditCol(){ document.getElementById('editColModal').classList.remove('open'); }
+function updateColecao(){
+  const id = document.getElementById('editColId').value;
+  const nome = document.getElementById('editColNome').value.trim();
+  if(!nome){ showEr('editColMsg','Digite o nome.'); return; }
+  const d = getData();
+  const col = d.colecoes.find(c=>c.id===id);
+  if(!col){ showEr('editColMsg','Coleção não encontrada.'); return; }
+  col.nome = nome;
+  col.capa = document.getElementById('editColCapa').value.trim();
+  col.desc = document.getElementById('editColDesc').value.trim();
+  col.temas = getChecked('ect_');
+  setData(d);
+  showOk('editColMsg','Salvo!');
+  renderAdminColList();
+  buildColSelect('obraColecao');
+  buildColSelect('destaqueSelect');
+  buildColSelect('editObraColecao');
+  setTimeout(closeEditCol, 1200);
+}
+
+/* ---- SAVE OBRA ---- */
 function saveObra(){
-  const colId=document.getElementById('obraColecao').value;
-  const titulo=document.getElementById('obraTitulo').value.trim();
-  const img=document.getElementById('obraImg').value.trim();
-  if(!colId){showMsg('obraMsg','Selecione uma coleção.',false);return;}
-  if(!titulo){showMsg('obraMsg','Digite o título.',false);return;}
-  if(!img){showMsg('obraMsg','Cole a URL da imagem.',false);return;}
-  const d=getData();
-  d.obras.push({id:uid(),colId,titulo,img,temas:getCheckedTemas('obra_tema_')});
+  const colId = document.getElementById('obraColecao').value;
+  const titulo = document.getElementById('obraTitulo').value.trim();
+  const img = document.getElementById('obraImg').value.trim();
+  if(!colId){ showEr('obraMsg','Selecione uma coleção.'); return; }
+  if(!titulo){ showEr('obraMsg','Digite o título.'); return; }
+  if(!img){ showEr('obraMsg','Cole a URL da imagem.'); return; }
+  const d = getData();
+  d.obras.push({
+    id:uid(), colId, titulo, img,
+    dims:document.getElementById('obraDims').value.trim(),
+    info:document.getElementById('obraInfo').value.trim(),
+    temas:getChecked('ot_')
+  });
   setData(d);
   document.getElementById('obraTitulo').value='';
   document.getElementById('obraImg').value='';
-  document.querySelectorAll('input[name="obra_tema_"]').forEach(i=>i.checked=false);
-  showMsg('obraMsg','Obra adicionada!');
+  document.getElementById('obraDims').value='';
+  document.getElementById('obraInfo').value='';
+  document.querySelectorAll('input[name="ot_"]').forEach(i=>i.checked=false);
+  showOk('obraMsg','Obra adicionada!');
   renderAdminObrasList();
 }
 
 function deleteObra(id){
-  if(!confirm('Excluir esta obra?')) return;
-  const d=getData();
-  d.obras=d.obras.filter(o=>o.id!==id);
+  const d = getData();
+  const ob = d.obras.find(o=>o.id===id);
+  if(!confirm(`Excluir a obra "${ob?ob.titulo:id}"?`)) return;
+  d.obras = d.obras.filter(o=>o.id!==id);
   setData(d);
   renderAdminObrasList();
 }
 
-// SAVE DESTAQUE
+/* ---- EDITAR OBRA ---- */
+function openEditObra(id){
+  const d = getData();
+  const ob = d.obras.find(o=>o.id===id);
+  if(!ob) return;
+  buildChecks('editObraTemas','eot_');
+  buildColSelect('editObraColecao');
+  document.getElementById('editObraId').value = id;
+  document.getElementById('editObraColecao').value = ob.colId||'';
+  document.getElementById('editObraTitulo').value = ob.titulo||'';
+  document.getElementById('editObraImg').value = ob.img||'';
+  document.getElementById('editObraDims').value = ob.dims||'';
+  document.getElementById('editObraInfo').value = ob.info||'';
+  setChecked('eot_', ob.temas||[]);
+  document.getElementById('editObraModal').classList.add('open');
+}
+function closeEditObra(){ document.getElementById('editObraModal').classList.remove('open'); }
+function updateObra(){
+  const id = document.getElementById('editObraId').value;
+  const titulo = document.getElementById('editObraTitulo').value.trim();
+  if(!titulo){ showEr('editObraMsg','Digite o título.'); return; }
+  const d = getData();
+  const ob = d.obras.find(o=>o.id===id);
+  if(!ob){ showEr('editObraMsg','Obra não encontrada.'); return; }
+  ob.colId = document.getElementById('editObraColecao').value;
+  ob.titulo = titulo;
+  ob.img = document.getElementById('editObraImg').value.trim();
+  ob.dims = document.getElementById('editObraDims').value.trim();
+  ob.info = document.getElementById('editObraInfo').value.trim();
+  ob.temas = getChecked('eot_');
+  setData(d);
+  showOk('editObraMsg','Salvo!');
+  renderAdminObrasList();
+  setTimeout(closeEditObra, 1200);
+}
+
+/* ---- SAVE DESTAQUE ---- */
 function saveDestaque(){
-  const val=document.getElementById('destaqueSelect').value;
-  if(!val){showMsg('destaqueMsg','Selecione uma coleção.',false);return;}
-  const d=getData(); d.destaque=val; setData(d);
-  showMsg('destaqueMsg','Destaque salvo!');
+  const val = document.getElementById('destaqueSelect').value;
+  if(!val){ showEr('destaqueMsg','Selecione uma coleção.'); return; }
+  const d = getData(); d.destaque = val; setData(d);
+  showOk('destaqueMsg','Destaque salvo e publicado!');
   renderDestaqueHome();
 }
 
-// SAVE SOBRE
+/* ---- SAVE SOBRE ---- */
 function saveSobre(){
-  const d=getData();
-  d.sobre={
+  const d = getData();
+  d.sobre = {
     titulo:document.getElementById('sobreAdmTitulo').value,
     texto:document.getElementById('sobreAdmTexto').value,
     assinatura:document.getElementById('sobreAdmAssinatura').value,
     foto:document.getElementById('sobreAdmFoto').value
   };
   setData(d);
-  showMsg('sobreMsg','Página Sobre atualizada!');
+  showOk('sobreMsg','Página Sobre atualizada!');
 }
 
-// SAVE TEXTOS
+/* ---- SAVE TEXTOS ---- */
 function saveTextos(){
-  const d=getData();
-  d.textos={
-    sliderSub:document.getElementById('txtSliderSub').value,
+  const d = getData();
+  d.textos = {
     lojaTitulo:document.getElementById('txtLojaTitulo').value,
     lojaDesc:document.getElementById('txtLojaDesc').value,
     lojaBg:document.getElementById('txtLojaBg').value
   };
   setData(d);
-  showMsg('textosMsg','Textos salvos!');
-  renderHome();
+  showOk('textosMsg','Textos salvos!');
 }
 
-// SAVE SENHA
+/* ---- SAVE SENHA ---- */
 function saveSenha(){
-  const d=getData();
-  const atual=document.getElementById('senhaAtual').value;
-  const nova=document.getElementById('senhaNova').value;
-  const conf=document.getElementById('senhaConfirm').value;
-  if(atual!==(d.senha||DEFAULT_DATA.senha)){showMsg('senhaMsg','Senha atual incorreta.',false);return;}
-  if(!nova){showMsg('senhaMsg','Digite a nova senha.',false);return;}
-  if(nova!==conf){showMsg('senhaMsg','As senhas não conferem.',false);return;}
-  d.senha=nova; setData(d);
-  showMsg('senhaMsg','Senha alterada com sucesso!');
-  document.getElementById('senhaAtual').value='';
-  document.getElementById('senhaNova').value='';
-  document.getElementById('senhaConfirm').value='';
+  const d = getData();
+  const atual = document.getElementById('senhaAtual').value;
+  const nova = document.getElementById('senhaNova').value;
+  const conf = document.getElementById('senhaConfirm').value;
+  if(atual!==(d.senha||'galeria2025')){ showEr('senhaMsg','Senha atual incorreta.'); return; }
+  if(!nova){ showEr('senhaMsg','Digite a nova senha.'); return; }
+  if(nova!==conf){ showEr('senhaMsg','As senhas não conferem.'); return; }
+  d.senha = nova; setData(d);
+  showOk('senhaMsg','Senha alterada!');
+  ['senhaAtual','senhaNova','senhaConfirm'].forEach(id=>document.getElementById(id).value='');
 }
 
-// ===== INIT =====
+/* ---- UTILS ---- */
+function escH(s){ 
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ---- INIT ---- */
 window.addEventListener('DOMContentLoaded',()=>{
   renderHome();
 });
